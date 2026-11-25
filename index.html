@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>Автомастерская у Шукура</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+:root{--bg:#aeb9c4;}
+html,body{margin:0;height:100%;background:var(--bg);overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none;font-family:system-ui,sans-serif}
+canvas{display:block;width:100%;height:100%}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>/*i18n*/(function(){
+var D={"Ссылка скопирована":"Link copied","Друг пришёл! +":"A friend joined! +","Игрок":"Player","🏆 Лучшие игроки":"🏆 Top players","Закрыть":"Close","Загрузка…":"Loading…","ТАКСИ":"TAXI","Дождь и лужи":"Rain and puddles","Долгий путь":"Long trip","Такси":"Taxi","Полиция":"Police","Скорая помощь":"Ambulance","Сыграй раундов: ":"Play rounds: ","Набери очков: ":"Score points: ","Позови друга":"Invite a friend","Задание выполнено!":"Mission complete!","Достижение: ":"Achievement: ","Награда: ":"Reward: ","Задания дня":"Daily missions","Достижения":"Achievements","Дней подряд: ":"Day streak: ","🎮 Первая игра":"🎮 First game","🔟 10 игр":"🔟 10 games","🏅 50 игр":"🏅 50 games","⭐ Много очков":"⭐ Lots of points","🌟 Мастер":"🌟 Master","👥 Позвал друга":"👥 Invited a friend","🔥 3 дня подряд":"🔥 3 days in a row","🏆 Неделя подряд":"🏆 A week in a row","✅ Все задания дня":"✅ All daily missions","АВТО · ШУКУР":"SHUKUR · AUTO","Автомастерская":"Auto Shop","у Шукура":"at Shukur's","Подмастерье":"Apprentice","Механик":"Mechanic","Мастер":"Master","Старший мастер":"Senior master","Шукур-босс 😎":"Boss Shukur 😎","Колесо":"Wheel","Аккумулятор":"Battery","Масло":"Oil","Кузов":"Body","Фары":"Lights","Колесо спустило, еду как по ухабам!":"The tire is flat, the ride is bumpy!","Что-то шипит у колеса…":"Something is hissing near the wheel…","Не заводится, только щёлкает!":"Won't start, only clicks!","Фары тусклые, стартер молчит.":"Lights are dim, the starter is silent.","Загорелась лампочка масла!":"The oil light came on!","Двигатель стучит, масло давно не менял.":"The engine knocks, haven't changed the oil in ages.","Кто-то помял дверь на парковке.":"Someone dented my door in the parking lot.","Поцарапали и помяли бок машины.":"The side got scratched and dented.","Одна фара перегорела, ночью не видно.":"One headlight is out, can't see at night.","Не горит фара, помоги!":"A headlight is dead, help!","🔍 Осмотреть":"🔍 Inspect","Что сломано? Выбери деталь!":"What's broken? Pick a part!","Хм, не похоже. Проверь ещё!":"Hmm, doesn't look like it. Check again!","Поменяй колесо":"Change the wheel","Тяни новое колесо на ось ☝️":"Drag the new wheel onto the axle ☝️","Откручивай болты — тапай по ним 🔧":"Unscrew the bolts — tap them 🔧","Закрути болты обратно 🔧":"Tighten the bolts back 🔧","сек":"sec","Заведи машину":"Start the car","Красный зажим на «+», чёрный на «−»":"Red clamp on “+”, black on “−”","Теперь поверни ключ 🔑":"Now turn the key 🔑","Мотор заурчал! 🎉":"The engine roars! 🎉","🔑 Завести":"🔑 Start","Не туда! Красный — «+», чёрный — «−»":"Wrong! Red is “+”, black is “−”","Долей масло до зелёной зоны":"Top up oil to the green zone","Лить ⬇":"Pour ⬇","Слить ⬆":"Drain ⬆","✅ Проверить":"✅ Check","Мало масла!":"Not enough oil!","Слишком много!":"Too much!","Выправи вмятины молотком":"Hammer out the dents","Закрась пятна":"Paint the patches","Тапай по вмятинам":"Tap the dents","Води пальцем по серым пятнам — покраска":"Swipe over the gray patches to paint","Поставь подходящую лампу":"Fit the right bulb","Найди лампу такой же формы и перетащи в фару":"Find the bulb with the same shape and drag it in","Зажми кнопку и закрути!":"Hold the button to screw it in!","Горит! 🎉":"It shines! 🎉","🔄 Закрутить":"🔄 Screw in","Не подходит по форме!":"Wrong shape!","Готово!":"Done!","Заработано: +":"Earned: +","Отлично, дружок! Золотые руки!":"Great, buddy! Golden hands!","Хорошая работа! Ещё чуть быстрее!":"Nice work! A bit faster next time!","Починил — уже молодец. Учись, дружок!":"Fixed it — well done. Keep learning, buddy!","▶ Следующий клиент":"▶ Next customer","🛒 Инструменты":"🛒 Tools","🏠 В меню":"🏠 Menu","Рама":"Frame","Заднее колесо":"Rear wheel","Переднее колесо":"Front wheel","Двигатель":"Engine","Сиденья":"Seats","Руль":"Steering wheel","Стёкла":"Windows","Двери":"Doors","Начнём с рамы — это основа машины.":"Start with the frame — the base of the car.","Поставь заднее колесо.":"Fit the rear wheel.","Теперь переднее колесо.":"Now the front wheel.","Сердце машины — двигатель. Ставь под капот!":"The heart of the car — the engine. Put it under the hood!","Аккумулятор даёт искру. Поставь рядом с двигателем.":"The battery gives the spark. Put it next to the engine.","Салону нужны сиденья.":"The cabin needs seats.","Без руля никуда! Поставь руль.":"Can't drive without a steering wheel!","Накрой всё кузовом — он защитит механику.":"Cover everything with the body.","Поставь стёкла.":"Fit the windows.","Двери закрывают салон.":"Doors close the cabin.","Последняя деталь — фары.":"The last part — headlights.","Осталось покрасить! Выбери цвет.":"Time to paint! Pick a color.","Машина собрана! 🎉":"Car built! 🎉","🏗️ Собрать ещё":"🏗️ Build another","Это не та деталь!":"That's not the right part!","Гаечный ключ":"Wrench","Трещотка":"Ratchet","Гайковёрт":"Impact wrench","Болты нужно 3 раза тапнуть":"Bolts need 3 taps","Болты — 2 тапа":"Bolts — 2 taps","Болты — 1 тап":"Bolts — 1 tap","Молоток":"Hammer","Киянка":"Mallet","Правочный набор":"Body kit","Вмятина — 3 удара":"Dent — 3 hits","Вмятина — 2 удара":"Dent — 2 hits","Вмятина — 1 удар, краска быстрее":"Dent — 1 hit, faster paint","Лейка":"Oil can","Воронка":"Funnel","Раздатчик":"Dispenser","Медленно, узкая зона":"Slow, narrow zone","Быстрее, зона шире":"Faster, wider zone","Быстро и широкая зона":"Fast and wide zone","Простые зажимы":"Plain clamps","Крокодилы":"Alligator clips","Стенд зарядки":"Charging stand","Нужно точно попасть":"Needs precise aim","Попасть проще":"Easier to hit","Зажим сам цепляется":"Clamp snaps on","Пальцы":"Fingers","Пинцет":"Tweezers","Лампо-набор":"Bulb kit","Медленно закручивать":"Slow to screw in","Быстрее и проще":"Faster and easier","Мигом и без промаха":"Instant, no misses","Купить: ":"Buy: ","Макс.":"Max","Мало денег 💰":"Not enough money 💰","Куплено!":"Bought!","🔧 Чиним: клиент №":"🔧 Repair: customer #","🏗️ Собрать машину с нуля":"🏗️ Build a car from scratch","👥 Позвать друга":"👥 Invite a friend","Работаю в автомастерской у Шукура! Починено машин: ":"I work at Shukur's auto shop! Cars fixed: ","Автомастерская у Шукура":"Shukur's Auto Shop","Масло меняй примерно раз в 10 000 км.":"Change oil about every 6,000 miles.","Давление в шинах проверяй раз в месяц.":"Check tire pressure once a month.","Красный зажим — плюс, чёрный — минус.":"Red clamp is plus, black is minus.","Перед выездом всегда пристегни ремень!":"Always buckle up before driving!","Лампы бывают разной формы — смотри на цоколь.":"Bulbs come in different shapes — check the base.","Тормозной путь зимой длиннее — не лихачь.":"Braking takes longer in winter — drive carefully.","Аккумулятор зимой садится быстрее.":"Batteries drain faster in winter.","Болты колеса затягивай крест-накрест.":"Tighten wheel bolts in a cross pattern.","⚡ СРОЧНО: монеты ×2":"⚡ RUSH: coins ×2","Выставка":"Showcase","Муха: это точно не ":"Mukha: it is definitely not ","Спросить Муху · 5 💰":"Ask Mukha · 5 💰","Нажимай на болты, пока они не выкрутятся!":"Tap the bolts until they come out!","Красный зажим на плюс, чёрный на минус!":"Red clamp on plus, black on minus!","Держи «Лить», пока уровень не дойдёт до зелёного!":"Hold “Pour” until the level reaches the green zone!","Тапай по вмятинам, потом води пальцем по серому!":"Tap the dents, then swipe over the gray!","Подбери лампу по форме и закрути!":"Match the bulb by shape and screw it in!","А вы знали, что у машины четыре колеса? А у меня — два кроссовка!":"Did you know a car has four wheels? And I have two sneakers!","Шеф, я принёс кофе! Ой… уже выпил.":"Boss, I brought coffee! Oh… already drank it.","Шукур сказал не болтать. Я молчу. Уже молчу. Почти…":"Shukur told me not to chat. I'm quiet. Totally quiet. Almost…","Масло, масло, где же ты, масло?":"Oil, oil, where are you, oil?","Вчера нашёл гайку! А потом потерял. Но я нашёл!":"Yesterday I found a nut! Then lost it. But I found it!","Хотите расскажу, как я чинил велосипед? Он был красный!":"Want to hear how I fixed a bike? It was red!","Я могу говорить без остановки! Вот прямо сейчас…":"I can talk non-stop! Right now…","А знаете, почему шины чёрные? Так им не видно грязи!":"Know why tires are black? So you can't see the dirt!","Домкрат соскочил — колесо слетело!":"The jack slipped — the wheel fell off!","Клеммы сорвало — аккумулятор отключился!":"The clamps came off — the battery disconnected!","Масло пролилось — снова надо доливать!":"Oil spilled — needs topping up again!","Тележка задела дверь — новая вмятина!":"The cart hit the door — a new dent!","Отвёртка упала — фара разбилась!":"A screwdriver fell — the headlight broke!","Ой! Кажется, я что-то задел…":"Oops! I think I bumped something…","Ого! Это что, я задел?!":"Whoa! Did I just break that?!","Муха-а-а!":"Mukha-a-a!","Шеф, вы тоже ошибаетесь? Хи-хи!":"Boss, you make mistakes too? Hehe!","🔧 Починить вместе":"🔧 Fix it together","в том числе бонус за общий ремонт: +":"including the teamwork bonus: +","Мастерская стала лучше! ":"Your garage got better! "};
+var RU={ru:1,be:1,uk:1,kk:1,ky:1,tg:1,uz:1,hy:1,az:1,ka:1,tk:1,mo:1};
+var lang='ru';
+try{var q=(location.search.match(/[?&]lang=(\w+)/)||[])[1];
+var tg=window.Telegram&&window.Telegram.WebApp,u=tg&&tg.initDataUnsafe&&tg.initDataUnsafe.user;
+var c=q||(u&&u.language_code)||(navigator.language||'ru');c=String(c).toLowerCase().slice(0,2);lang=RU[c]?'ru':'en';}catch(e){}
+function T(s){
+ if(lang==='ru'||typeof s!=='string')return s;
+ var r=D[s];if(r!==undefined)return r;
+ if(s.indexOf('<')>=0)return s.replace(/>([^<>]+)</g,function(m,t){var k=D[t];return '>'+(k!==undefined?k:t)+'<';});
+ return s;
+}
+window.T=T;window.__lang=lang;
+function walkDom(){if(lang==='ru')return;try{document.title=T(document.title);var w=document.createTreeWalker(document.body,4),n;while(n=w.nextNode()){var t=n.nodeValue.trim();if(t&&D[t])n.nodeValue=n.nodeValue.replace(t,D[t]);}}catch(e){}}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',walkDom);else walkDom();
+try{document.documentElement.lang=lang;}catch(e){}
+})();
+/*end-i18n*/</script>
+<script>
+(function(){
+var tg=null;
+try{tg=window.Telegram&&window.Telegram.WebApp;if(tg){tg.ready();tg.expand();try{tg.disableVerticalSwipes();}catch(e){}}}catch(e){}
+var SHARE_URL='https://t.me/shukur_garage_game_bot/Garage';
+var LB=(function(){
+var URL_='https://goxmwpjepbfeyxchdtce.supabase.co/rest/v1/scores',KEY='sb_publishable_MoDF_SQuqqlB59Txr3imug_eWsMhnfP',GAME='shukur';
+var el=null,rows=null,state='idle',myId=null;
+function TGW(){try{return window.Telegram&&window.Telegram.WebApp;}catch(e){return null;}}
+function uid(){if(myId)return myId;try{var u=TGW().initDataUnsafe.user;if(u&&u.id){myId='t'+u.id;return myId;}}catch(e){}
+try{var k=localStorage.getItem('lb_uid');if(!k){k='a'+Math.random().toString(36).slice(2,10);localStorage.setItem('lb_uid',k);}myId=k;}catch(e){myId='a'+Math.random().toString(36).slice(2,10);}return myId;}
+function nm(){try{var u=TGW().initDataUnsafe.user;if(u&&u.first_name)return u.first_name.slice(0,12);}catch(e){}return T('Игрок');}
+function hd(extra){var h={apikey:KEY,'Content-Type':'application/json'};if(extra)for(var k in extra)h[k]=extra[k];return h;}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function load(cb){state='loading';fetch(URL_+'?game=eq.'+GAME+'&select=name,score,user_id&order=score.desc&limit=10',{headers:hd()}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(a){rows=a;state='ok';if(cb)cb();}).catch(function(){state='err';if(cb)cb();});}
+function submit(sc){sc=Math.floor(sc);if(!(sc>0))return;var id=uid();
+fetch(URL_+'?game=eq.'+GAME+'&user_id=eq.'+encodeURIComponent(id)+'&select=score',{headers:hd()}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(a){
+if(a.length&&a[0].score>=sc)return;
+return fetch(URL_+'?on_conflict=game,user_id',{method:'POST',headers:hd({Prefer:'resolution=merge-duplicates,return=minimal'}),body:JSON.stringify({game:GAME,user_id:id,name:nm(),score:sc,updated_at:new Date().toISOString()})});
+}).catch(function(){});}
+function build(){el=document.createElement('div');el.style.cssText='position:fixed;left:0;top:0;right:0;bottom:0;z-index:99;background:rgba(10,5,30,.88);display:none;align-items:center;justify-content:center;font-family:system-ui,sans-serif';
+el.innerHTML=T('<div style="background:#fff;color:#222;border-radius:20px;width:min(340px,90vw);max-height:80vh;overflow:auto;padding:18px"><div style="font-size:22px;font-weight:800;text-align:center;margin-bottom:10px">🏆 Лучшие игроки</div><div id="lbl"></div><button id="lbx" style="margin-top:14px;width:100%;padding:13px;border:0;border-radius:12px;background:#8e5cf7;color:#fff;font-size:17px;font-weight:700">Закрыть</button></div>');
+document.body.appendChild(el);el.querySelector('#lbx').onclick=close;el.onclick=function(e){if(e.target===el)close();};}
+function paint(){if(!el)return;var l=el.querySelector('#lbl'),h='';
+if(state==='loading'||state==='idle')h=T('<div style="text-align:center;padding:20px;color:#777">Загрузка…</div>');
+else if(state==='err')h=T('<div style="text-align:center;padding:20px;color:#c33">Не удалось загрузить. Проверь интернет.</div>');
+else if(!rows.length)h=T('<div style="text-align:center;padding:20px;color:#777">Пока никого. Стань первым!</div>');
+else{var me=uid();for(var i=0;i<rows.length;i++){var r=rows[i],m=['🥇','🥈','🥉'][i]||(i+1)+'.';h+='<div style="display:flex;gap:10px;padding:9px 8px;border-radius:10px;'+(r.user_id===me?'background:#fff3b0;':(i%2?'background:#f4f0ff;':''))+'font-size:17px"><span style="width:32px">'+m+'</span><span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(r.name)+'</span><b>'+r.score+'</b></div>';}}
+l.innerHTML=h;}
+function open(){if(!el)build();el.style.display='flex';paint();load(paint);}
+function close(){if(el)el.style.display='none';}
+return {open:open,submit:submit};
+})();
+var REF=(function(){
+var URL_='https://goxmwpjepbfeyxchdtce.supabase.co/rest/v1/scores',KEY='sb_publishable_MoDF_SQuqqlB59Txr3imug_eWsMhnfP';
+function TGW(){try{return window.Telegram&&window.Telegram.WebApp;}catch(e){return null;}}
+function id(){try{var u=TGW().initDataUnsafe.user;if(u&&u.id)return String(u.id);}catch(e){}return '';}
+function nm(){try{var u=TGW().initDataUnsafe.user;if(u&&u.first_name)return u.first_name.slice(0,12);}catch(e){}return T('Игрок');}
+function hd(x){var h={apikey:KEY,'Content-Type':'application/json'};if(x)for(var k in x)h[k]=x[k];return h;}
+function startParam(){try{return TGW().initDataUnsafe.start_param||'';}catch(e){return '';}}
+function fromParam(sp){return /^r\d+$/.test(sp||'')?sp.slice(1):'';}
+function link(base){var me=id();return (me&&base)?base+'?startapp=r'+me:base;}
+function register(inv){
+  try{if(!inv||!id()||inv===id())return;if(localStorage.getItem('ref_done'))return;}catch(e){return;}
+  fetch(URL_+'?on_conflict=game,user_id',{method:'POST',headers:hd({Prefer:'resolution=merge-duplicates,return=minimal'}),body:JSON.stringify({game:'ref:'+inv,user_id:id(),name:nm(),score:1})}).then(function(r){if(r.ok){try{localStorage.setItem('ref_done','1');}catch(e){}}}).catch(function(){});
+}
+function claim(key,cb){
+  var me=id();if(!me)return;
+  fetch(URL_+'?game=eq.ref:'+me+'&select=user_id',{headers:hd()}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(a){
+    var n=a.length,k='ref_claimed_'+key,d=0;try{d=+localStorage.getItem(k)||0;}catch(e){}
+    if(n>d){try{localStorage.setItem(k,String(n));}catch(e){}cb(n-d);}
+  }).catch(function(){});
+}
+return {id:id,link:link,register:register,claim:claim,fromParam:fromParam,startParam:startParam};
+})();
+setTimeout(function(){try{REF.register(REF.fromParam(REF.startParam()));REF.claim('sh',function(n){S.coins+=25*n;save2();toast(T('Друг пришёл! +')+25*n+' 💰');});}catch(e){}},700);
+var cv=document.getElementById('c'),ctx=cv.getContext('2d'),W=0,H=0,DPR=1;
+function resize(){DPR=Math.min(2,window.devicePixelRatio||1);W=window.innerWidth;H=window.innerHeight;cv.width=W*DPR;cv.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);}
+window.addEventListener('resize',resize);resize();
+function satop(){try{return ((tg.safeAreaInset||{}).top||0)+((tg.contentSafeAreaInset||{}).top||0);}catch(e){return 0;}}
+function rr(x,y,w,h,r){ctx.beginPath();if(ctx.roundRect)ctx.roundRect(x,y,w,h,r||10);else ctx.rect(x,y,w,h);}
+var actx=null;
+function initAudio(){try{if(!actx)actx=new (window.AudioContext||window.webkitAudioContext)();if(actx.state==='suspended')actx.resume();}catch(e){}}
+function beep(f,d,ty,v){try{if(!actx||S2.mute)return;var o=actx.createOscillator(),g=actx.createGain();o.type=ty||'sine';o.frequency.value=f;g.gain.setValueAtTime(v||0.1,actx.currentTime);g.gain.exponentialRampToValueAtTime(0.001,actx.currentTime+d);o.connect(g);g.connect(actx.destination);o.start();o.stop(actx.currentTime+d);}catch(e){}}
+function buzz(k){try{tg&&tg.HapticFeedback&&tg.HapticFeedback.notificationOccurred(k);}catch(e){}}
+function tick(){try{tg&&tg.HapticFeedback&&tg.HapticFeedback.impactOccurred('light');}catch(e){}}
+function jingle(){[523,659,784,1046].forEach(function(f,i){setTimeout(function(){beep(f,.2,'triangle',.12);},i*110);});}
+var msg='',msgT=0;function toast(m){msg=m;msgT=performance.now()+1800;}
+var SIL=false;
+function C(c){return SIL?'#2b2b45':c;}
+function box(x,y,w,h,r,c){ctx.fillStyle=C(c);rr(x,y,w,h,r);ctx.fill();}
+function circ(x,y,r,c){ctx.fillStyle=C(c);ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fill();}
+function wheel(x,y,r){circ(x,y,r,'#2a2a2a');if(!SIL){circ(x,y,r*.5,'#b9c2cc');circ(x,y,r*.18,'#6b747d');}}
+function win(x,y,w,h){box(x,y,w,h,5,'#bfe6ff');if(!SIL){ctx.fillStyle='rgba(255,255,255,.55)';ctx.beginPath();ctx.moveTo(x+4,y+h-3);ctx.lineTo(x+w*.4,y+3);ctx.lineTo(x+w*.4+9,y+3);ctx.lineTo(x+13,y+h-3);ctx.fill();}}
+function txt(s,x,y,sz,c){if(SIL)return;ctx.fillStyle=c;ctx.font='bold '+sz+'px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(s,x,y);}
+function shade(h,k){var n=parseInt(h.slice(1),16),r=n>>16,g=(n>>8)&255,b=n&255,t=k<0?0:255,a=Math.abs(k);r=Math.round(r+(t-r)*a);g=Math.round(g+(t-g)*a);b=Math.round(b+(t-b)*a);return 'rgb('+r+','+g+','+b+')';}
+function body(d,c){var p=new Path2D(d);if(SIL){ctx.fillStyle='#2b2b45';ctx.fill(p);return;}var g=ctx.createLinearGradient(0,-48,0,34);g.addColorStop(0,shade(c,.3));g.addColorStop(.5,c);g.addColorStop(1,shade(c,-.28));ctx.fillStyle=g;ctx.fill(p);ctx.lineWidth=2;ctx.lineJoin='round';ctx.strokeStyle=shade(c,-.5);ctx.stroke(p);}
+function glass(d){if(SIL)return;var p=new Path2D(d),g=ctx.createLinearGradient(0,-44,0,-6);g.addColorStop(0,'#e6f6ff');g.addColorStop(1,'#78b6e6');ctx.fillStyle=g;ctx.fill(p);ctx.lineWidth=1.6;ctx.strokeStyle='rgba(25,55,90,.6)';ctx.lineJoin='round';ctx.stroke(p);}
+function arch(x,y,r){if(SIL)return;ctx.fillStyle='#1b1b22';ctx.beginPath();ctx.arc(x,y,r+4,Math.PI,0);ctx.fill();}
+function wh(x,y,r){circ(x,y,r,'#22222a');if(SIL)return;var g=ctx.createRadialGradient(x-r*.2,y-r*.2,1,x,y,r*.7);g.addColorStop(0,'#f4f7fa');g.addColorStop(1,'#8a949f');ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r*.66,0,7);ctx.fill();ctx.strokeStyle='#59636e';ctx.lineWidth=1.8;for(var k=0;k<5;k++){var a=k*1.2566+.3;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+Math.cos(a)*r*.62,y+Math.sin(a)*r*.62);ctx.stroke();}circ(x,y,r*.16,'#454d57');}
+function lamps(fx,fy,bx,by){if(SIL)return;ctx.fillStyle='#fff3a0';rr(fx-10,fy,10,8,3);ctx.fill();ctx.strokeStyle='rgba(120,100,0,.6)';ctx.lineWidth=1;ctx.stroke();ctx.fillStyle='#e8352f';rr(bx,by,7,10,2);ctx.fill();}
+function ln(x1,y1,x2,y2,c,w){if(SIL)return;ctx.strokeStyle=c||'rgba(0,0,0,.35)';ctx.lineWidth=w||1.6;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();}
+function doors(sx){ln(sx,-8,sx,26);ln(sx-16,-1,sx-6,-1,'rgba(255,255,255,.75)',3);ln(sx+14,-1,sx+24,-1,'rgba(255,255,255,.75)',3);}
+function mirror(x,y,c){box(x,y,9,6,3,c);}
+var SEDAN='M-94,30 L-95,8 Q-95,-1 -84,-3 L-60,-6 Q-46,-30 -18,-32 L16,-32 Q38,-30 52,-8 L80,-4 Q96,0 96,14 L96,30 Z';
+var VEH={
+ sedan:function(c){c=c||'#2f6fe8';body(SEDAN,c);glass('M-50,-8 Q-39,-26 -16,-28 L-5,-28 L-5,-8 Z');glass('M2,-28 L16,-28 Q34,-26 45,-8 L2,-8 Z');doors(-2);mirror(46,-8,c);
+  ln(-94,22,96,22,'rgba(0,0,0,.25)',3);arch(-56,34,16);arch(56,34,16);wh(-56,34,16);wh(56,34,16);lamps(96,4,-95,4);},
+ taxi:function(c){c=c||'#ffd21f';body(SEDAN,c);glass('M-50,-8 Q-39,-26 -16,-28 L-5,-28 L-5,-8 Z');glass('M2,-28 L16,-28 Q34,-26 45,-8 L2,-8 Z');doors(-2);mirror(46,-8,c);
+  box(-16,-43,32,12,4,'#fff');txt(T('ТАКСИ'),0,-37,8,'#222');if(!SIL){for(var i=0;i<14;i++){ctx.fillStyle=i%2?'#fff':'#222';ctx.fillRect(-84+i*12,8,6,6);}}
+  arch(-56,34,16);arch(56,34,16);wh(-56,34,16);wh(56,34,16);lamps(96,4,-95,4);},
+ police:function(c){body(SEDAN,'#f4f6f8');if(!SIL){ctx.save();ctx.clip(new Path2D(SEDAN));ctx.fillStyle=c||'#2f6fe8';ctx.fillRect(-100,10,200,12);ctx.fillStyle='#d8dde2';ctx.fillRect(-100,22,200,10);ctx.restore();}
+  glass('M-50,-8 Q-39,-26 -16,-28 L-5,-28 L-5,-8 Z');glass('M2,-28 L16,-28 Q34,-26 45,-8 L2,-8 Z');doors(-2);mirror(46,-8,'#f4f6f8');
+  box(-20,-40,18,10,3,'#e53935');box(2,-40,18,10,3,'#2f6fe8');txt('★',-50,16,11,'#fff');txt('★',50,16,11,'#fff');
+  arch(-56,34,16);arch(56,34,16);wh(-56,34,16);wh(56,34,16);lamps(96,4,-95,4);},
+ ambulance:function(c){c=c||'#e53935';body('M-96,30 L-96,-26 Q-96,-36 -86,-36 L34,-36 Q48,-36 54,-26 L68,-8 L88,-4 Q97,-1 97,10 L97,30 Z','#f7f8fa');
+  glass('M40,-30 L47,-30 L60,-10 L40,-10 Z');if(!SIL){ctx.fillStyle=c;ctx.fillRect(-96,12,193,8);ctx.fillRect(-55,-20,22,7);ctx.fillRect(-47.5,-27.5,7,22);}
+  box(-12,-44,12,9,3,'#e53935');box(2,-44,12,9,3,'#2f6fe8');ln(36,-34,36,26);arch(-58,34,16);arch(58,34,16);wh(-58,34,16);wh(58,34,16);lamps(97,4,-96,2);},
+ fire:function(c){c=c||'#e53935';body('M-100,30 L-100,-12 L22,-12 L22,-34 Q22,-40 30,-40 L66,-40 Q76,-40 80,-30 L90,-8 L96,-6 Q100,-4 100,8 L100,30 Z',c);
+  glass('M32,-34 L64,-34 Q72,-34 76,-26 L84,-10 L32,-10 Z');if(!SIL){ctx.fillStyle='#fff';ctx.fillRect(-100,10,200,6);ctx.fillStyle='#cfd4da';ctx.fillRect(-94,-22,108,9);ctx.strokeStyle='#8a929a';ctx.lineWidth=2;ctx.strokeRect(-94,-22,108,9);for(var i=0;i<12;i++){ctx.beginPath();ctx.moveTo(-90+i*9,-22);ctx.lineTo(-90+i*9,-13);ctx.stroke();}}else{box(-94,-24,108,12,2,'#000');}
+  box(40,-48,18,8,3,'#e53935');box(44,-52,10,6,3,'#2f6fe8');ln(22,-34,22,26);arch(-66,34,17);arch(-24,34,17);arch(68,34,17);wh(-66,34,17);wh(-24,34,17);wh(68,34,17);lamps(100,2,-100,-4);},
+ bulldozer:function(c){c=c||'#ffbf1f';box(-76,18,156,32,16,'#2c2c32');if(!SIL){[-54,-18,18,54].forEach(function(x){circ(x,34,9,'#7a7a84');circ(x,34,3,'#222');});ctx.strokeStyle='#3a3a42';ctx.lineWidth=2;for(var k=-70;k<80;k+=10){ctx.beginPath();ctx.moveTo(k,18);ctx.lineTo(k,22);ctx.stroke();}}
+  body('M-52,18 L-52,-40 Q-52,-48 -44,-48 L6,-48 Q14,-48 16,-40 L18,-24 L50,-24 Q58,-24 58,-16 L58,18 Z',c);glass('M-44,-42 L6,-42 L10,-26 L-44,-26 Z');box(34,-44,6,22,2,'#555');box(-56,-52,70,6,3,shade(c,-.3));
+  ln(58,12,88,22,'#7c8590',6);box(86,-4,10,54,3,'#9aa3ad');box(-60,2,6,10,2,'#555');},
+ dump:function(c){c=c||'#ff8f1f';box(-100,14,200,14,4,'#5b5b63');body('M40,30 L40,-18 Q40,-30 52,-30 L76,-30 Q86,-30 90,-20 L100,0 Q102,4 102,10 L102,30 Z','#3fa34d');glass('M52,-24 L76,-24 Q82,-24 85,-16 L92,-4 L52,-4 Z');
+  ctx.save();ctx.translate(-96,14);ctx.rotate(-.13);body('M0,0 L0,-44 L8,-50 L138,-50 L138,-6 L132,0 Z',c);if(!SIL){ctx.fillStyle='rgba(0,0,0,.14)';ctx.fillRect(0,-50,138,7);for(var i=1;i<5;i++)ln(i*27,-44,i*27,-4,'rgba(0,0,0,.22)',2);}ctx.restore();
+  arch(-70,34,17);arch(-30,34,17);arch(68,34,17);wh(-70,34,17);wh(-30,34,17);wh(68,34,17);lamps(102,6,-100,12);},
+ race:function(c){c=c||'#e53935';body('M-96,28 L-96,12 Q-96,4 -84,2 L-44,0 Q-30,-14 -6,-20 Q18,-24 34,-8 L36,0 L86,6 Q98,9 98,18 L98,28 Z',c);glass('M-22,-2 Q-8,-16 10,-18 Q22,-18 28,-6 L28,0 L-24,0 Z');
+  box(-102,-18,22,5,2,'#222');box(-92,-14,5,18,2,'#222');if(!SIL){circ(-8,15,9,'#fff');}txt('7',-8,16,12,'#222');ln(-30,22,86,22,'rgba(255,255,255,.6)',3);
+  arch(-60,34,16);arch(62,34,16);wh(-60,34,16);wh(62,34,16);lamps(98,8,-96,8);},
+ bus:function(c){c=c||'#ffb400';body('M-98,32 L-98,-24 Q-98,-38 -84,-38 L82,-38 Q96,-38 98,-26 L98,32 Z',c);for(var i=0;i<5;i++)glass('M'+(-88+i*32)+',-30 h26 v22 h-26 Z');glass('M70,-30 L90,-30 L90,-8 L70,-8 Z');
+  if(!SIL){ctx.fillStyle='#222';ctx.fillRect(-98,6,196,5);ctx.fillStyle='#fff';ctx.fillRect(-98,14,196,5);}ln(64,-32,64,28);arch(-58,34,17);arch(58,34,17);wh(-58,34,17);wh(58,34,17);lamps(98,6,-98,6);},
+ tractor:function(c){c=c||'#3fa34d';body('M-8,18 L-8,-6 Q-8,-14 0,-14 L70,-14 Q78,-14 78,-6 L78,20 L-8,20 Z',c);glass('M-30,-44 L12,-44 Q18,-44 20,-36 L24,-10 L-30,-10 Z');box(-34,-52,58,8,3,shade(c,-.25));box(-34,-44,5,36,2,shade(c,-.25));box(56,-36,6,24,2,'#444');
+  circ(-40,22,30,'#25252b');if(!SIL){circ(-40,22,17,c);circ(-40,22,6,'#ddd');ctx.strokeStyle='#18181c';ctx.lineWidth=3;for(var k=0;k<14;k++){var a=k*.4488;ctx.beginPath();ctx.moveTo(-40+Math.cos(a)*26,22+Math.sin(a)*26);ctx.lineTo(-40+Math.cos(a)*30,22+Math.sin(a)*30);ctx.stroke();}}
+  circ(64,34,16,'#25252b');if(!SIL){circ(64,34,8,'#ddd');circ(64,34,3,'#777');}box(76,10,14,8,3,'#8a8a8a');},
+ jeep:function(c){c=c||'#4aa86a';body('M-94,30 L-96,-4 Q-96,-12 -88,-14 L-84,-36 Q-82,-42 -72,-42 L24,-42 Q34,-42 40,-34 L54,-14 L84,-10 Q96,-6 96,8 L96,30 Z',c);
+  glass('M-76,-36 L-6,-36 L-6,-14 L-78,-14 Z');glass('M0,-36 L24,-36 Q30,-36 34,-30 L46,-14 L0,-14 Z');doors(-3);ln(-70,-45,16,-45,'#444',4);mirror(46,-12,c);
+  circ(-102,8,15,'#25252b');if(!SIL)circ(-102,8,7,c);arch(-56,34,18);arch(56,34,18);wh(-56,34,18);wh(56,34,18);lamps(96,0,-95,0);}
+};
+var VT=['taxi','police','ambulance','fire','bulldozer','dump','race','bus','tractor','jeep'];
+var VN={taxi:T('Такси'),police:T('Полиция'),ambulance:T('Скорая помощь'),fire:T('Пожарная'),bulldozer:T('Бульдозер'),dump:T('Самосвал'),race:T('Гоночная'),bus:T('Автобус'),tractor:T('Трактор'),jeep:T('Джип')};
+function drawVeh(t,x,y,sc,sil,col){ctx.save();ctx.translate(x,y);ctx.scale(sc,sc);SIL=!!sil;try{VEH[t](col);}catch(e){}SIL=false;ctx.restore();}
+var S={coins:0,done:0,stars:0,built:0,cars:[],gl:0,lv:{wr:1,ha:1,oil:1,bat:1,bulb:1},mute:0};
+try{var q1=JSON.parse(localStorage.getItem('sh_save')||'null');if(q1){for(var k1 in q1)if(k1!=='lv')S[k1]=q1[k1];if(q1.lv)for(var k2 in q1.lv)S.lv[k2]=q1.lv[k2];}}catch(e){}
+function save2(){try{localStorage.setItem('sh_save',JSON.stringify(S));}catch(e){}}
+var state='menu',btns=[],holds=[],held=null,t=0,ptr={down:false,x:0,y:0,lx:0,ly:0,moved:0},job=null,F=null,bld=null,fx=[],shake=0;
+function rnd(a,b){return a+Math.random()*(b-a);}
+function pick(a){return a[Math.floor(Math.random()*a.length)];}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function dist(a,b,c,d){return Math.hypot(a-c,b-d);}
+// ---------- shared drawing ----------
+function bgG(){var g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#aeb9c4');g.addColorStop(.6,'#c9d1d9');g.addColorStop(.6,'#7b8590');g.addColorStop(1,'#5f6872');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+ ctx.strokeStyle='rgba(255,255,255,.18)';ctx.lineWidth=1;for(var y=0;y<H*.6;y+=36){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+ var sa=satop();ctx.fillStyle='#f2b01e';rr(W/2-96,sa+8,192,30,8);ctx.fill();ctx.fillStyle='#3a2a00';ctx.font='bold 15px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(T('АВТО · ШУКУР'),W/2,sa+23);
+ ctx.fillStyle='#6b7480';ctx.fillRect(0,H*.6-4,W,6);decor();}
+function decor(){var lv=glv(),fy=H*.6;ctx.textAlign='center';ctx.textBaseline='middle';
+ if(lv<3){ctx.fillStyle='rgba(0,0,0,.16)';var st=lv===0?[[.2,.7,40,9],[.55,.82,52,11],[.8,.68,34,8],[.35,.92,44,10],[.7,.95,38,9]]:lv===1?[[.75,.8,34,8],[.3,.93,30,7]]:[[.82,.9,24,6]];st.forEach(function(s){ctx.beginPath();ctx.ellipse(W*s[0],H*s[1],s[2],s[3],0,0,7);ctx.fill();});}
+ if(lv>=1){ctx.fillStyle='#7a5a34';ctx.fillRect(W*.02,H*.2,W*.2,6);ctx.font='22px system-ui';ctx.fillText('🔧',W*.06,H*.2-12);ctx.fillText('🔨',W*.12,H*.2-12);ctx.fillText('🪛',W*.18,H*.2-12);}
+ if(lv>=2){ctx.fillStyle='#d03b2f';rr(W*.02,fy+6,56,30,5);ctx.fill();ctx.fillStyle='#8f2a21';ctx.fillRect(W*.02,fy+14,56,4);ctx.fillStyle='#222';[0,1,2].forEach(function(i){ctx.beginPath();ctx.ellipse(W*.93,fy-6-i*14+14,26,9,0,0,7);ctx.fill();ctx.fillStyle='#555';ctx.beginPath();ctx.ellipse(W*.93,fy-6-i*14+14,12,4,0,0,7);ctx.fill();ctx.fillStyle='#222';});}
+ if(lv>=3){var gl=.55+.25*Math.sin(t*3);ctx.fillStyle='rgba(255,60,60,'+gl+')';rr(W*.76,H*.17,W*.2,26,8);ctx.fill();ctx.fillStyle='#fff';ctx.font='bold 14px system-ui';ctx.fillText('OPEN',W*.86,H*.17+13);ctx.fillStyle='#f2c200';for(var i=0;i<W;i+=40)ctx.fillRect(i,fy+H*.32,24,5);}
+ if(lv>=4){ctx.font='24px system-ui';ctx.fillText('🏆',W*.1,H*.3);ctx.fillText('🏆',W*.18,H*.3);ctx.fillText('🥇',W*.26,H*.3);ctx.fillStyle='#7a5a34';ctx.fillRect(W*.04,H*.3+14,W*.26,5);var fl=['#e84a4a','#ffb21f','#2fb36a','#2f6fe8','#8e5cf7'];for(var j=0;j<10;j++){ctx.fillStyle=fl[j%5];ctx.beginPath();ctx.moveTo(W*(j/10),satop()+44);ctx.lineTo(W*(j/10)+16,satop()+44);ctx.lineTo(W*(j/10)+8,satop()+58);ctx.fill();}var sg=ctx.createLinearGradient(0,fy,0,H);sg.addColorStop(0,'rgba(255,255,255,.28)');sg.addColorStop(1,'rgba(255,255,255,0)');ctx.fillStyle=sg;ctx.fillRect(0,fy,W,H-fy);}}
+function lvCheck(){var l=glv();if(l>S.gl){S.gl=l;save2();setTimeout(function(){toast(T('Мастерская стала лучше! ')+T(LN[l]));},1200);}}
+function iconBtn(x,y,s,ic,fn){btns.push({x:x,y:y,w:s,h:s,fn:fn});ctx.fillStyle='rgba(255,255,255,.92)';rr(x,y,s,s,12);ctx.fill();ctx.font=(s*.5)+'px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='#2a3440';ctx.fillText(ic,x+s/2,y+s/2+1);}
+function btn(x,y,w,h,label,fn,primary,sz,dis){btns.push({x:x,y:y,w:w,h:h,fn:dis?function(){}:fn});ctx.fillStyle=dis?'rgba(255,255,255,.4)':(primary?'#f2b01e':'#fff');rr(x,y,w,h,16);ctx.fill();ctx.strokeStyle=primary?'#c68a00':'#aab4bf';ctx.lineWidth=3;ctx.stroke();ctx.fillStyle=primary?'#3a2a00':'#2a3440';ctx.font='bold '+(sz||19)+'px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(label,x+w/2,y+h/2+1);}
+function holdBtn(id,x,y,w,h,label,sz){holds.push({id:id,x:x,y:y,w:w,h:h});var on=held===id;ctx.fillStyle=on?'#c68a00':'#f2b01e';rr(x,y+(on?3:0),w,h,16);ctx.fill();ctx.strokeStyle='#8a6000';ctx.lineWidth=3;ctx.stroke();ctx.fillStyle='#3a2a00';ctx.font='bold '+(sz||18)+'px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(label,x+w/2,y+h/2+(on?4:1));}
+function wrapText(s,x,y,mw,lh){var w=s.split(' '),line='',yy=y;ctx.textAlign='center';w.forEach(function(wd){var tst=line?line+' '+wd:wd;if(ctx.measureText(tst).width>mw&&line){ctx.fillText(line,x,yy);line=wd;yy+=lh;}else line=tst;});ctx.fillText(line,x,yy);return yy;}
+function bubble(x,y,w,text,tx,ty){ctx.font='bold 15px system-ui';var lines=1,words=text.split(' '),line='',n=1;words.forEach(function(wd){var tst=line?line+' '+wd:wd;if(ctx.measureText(tst).width>w-24&&line){n++;line=wd;}else line=tst;});var h=n*19+22;
+ ctx.fillStyle='#fff';ctx.strokeStyle='#8a94a0';ctx.lineWidth=2;rr(x,y,w,h,16);ctx.fill();ctx.stroke();
+ ctx.beginPath();ctx.moveTo(tx-8,y+h-1);ctx.lineTo(tx,ty);ctx.lineTo(tx+10,y+h-1);ctx.closePath();ctx.fillStyle='#fff';ctx.fill();
+ ctx.fillStyle='#24303c';ctx.textBaseline='middle';wrapText(text,x+w/2,y+20,w-24,19);return h;}
+var lastDust=0;
+function shukur(x,y,s,mood,sweep){ctx.save();ctx.translate(x,y);ctx.scale(s,s);
+ ctx.fillStyle='#2f6fb0';rr(-24,-58,48,58,12);ctx.fill();ctx.fillStyle='#f2b01e';ctx.fillRect(-24,-58,48,8);ctx.fillStyle='#24578d';rr(-12,-42,24,16,4);ctx.fill();
+ ctx.fillStyle='#2f6fb0';rr(-34,-52,12,34,6);ctx.fill();rr(22,-52,12,34,6);ctx.fill();ctx.fillStyle='#e0a67c';ctx.beginPath();ctx.arc(-28,-17,7,0,7);ctx.arc(28,-17,7,0,7);ctx.fill();
+ ctx.fillStyle='#2f5d3a';rr(-23,-9,19,14,5);ctx.fill();rr(4,-9,19,14,5);ctx.fill();ctx.fillStyle='#1c3a24';ctx.fillRect(-25,2,23,4);ctx.fillRect(2,2,23,4);ctx.fillStyle='rgba(255,255,255,.25)';ctx.fillRect(-19,-7,3,8);ctx.fillRect(8,-7,3,8);
+ ctx.fillStyle='#e8b48a';ctx.beginPath();ctx.arc(0,-78,23,0,7);ctx.fill();
+ ctx.fillStyle='#2a1a10';ctx.beginPath();ctx.moveTo(-23,-76);ctx.quadraticCurveTo(-24,-46,0,-44);ctx.quadraticCurveTo(24,-46,23,-76);ctx.quadraticCurveTo(14,-60,0,-60);ctx.quadraticCurveTo(-14,-60,-23,-76);ctx.fill();
+ ctx.fillStyle='#d9531e';ctx.beginPath();ctx.arc(0,-84,24,Math.PI,0);ctx.fill();ctx.fillRect(-24,-86,48,6);ctx.fillStyle='#b8431a';rr(8,-84,28,8,4);ctx.fill();
+ ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(-9,-80,5,0,7);ctx.arc(9,-80,5,0,7);ctx.fill();ctx.fillStyle='#222';ctx.beginPath();ctx.arc(-9,-79,2.4,0,7);ctx.arc(9,-79,2.4,0,7);ctx.fill();
+ ctx.strokeStyle='#2a1a10';ctx.lineWidth=3;ctx.lineCap='round';ctx.beginPath();if(mood==='angry'){ctx.moveTo(-15,-92);ctx.lineTo(-4,-87);ctx.moveTo(15,-92);ctx.lineTo(4,-87);}else{ctx.moveTo(-15,-88);ctx.lineTo(-4,-89);ctx.moveTo(15,-88);ctx.lineTo(4,-89);}ctx.stroke();
+ ctx.fillStyle='#2a1a10';ctx.beginPath();ctx.ellipse(-8,-70,10,5,-.25,0,7);ctx.ellipse(8,-70,10,5,.25,0,7);ctx.fill();
+ ctx.strokeStyle='#e8a090';ctx.lineWidth=3;ctx.beginPath();if(mood==='happy')ctx.arc(0,-62,6,.15,Math.PI-.15);else if(mood==='angry')ctx.arc(0,-55,6,Math.PI+.2,-.2);else{ctx.moveTo(-5,-58);ctx.lineTo(5,-58);}ctx.stroke();
+ if(sweep){var sw=Math.sin(t*3.2)*16;ctx.strokeStyle='#8a5a2b';ctx.lineWidth=4;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(28,-20);ctx.lineTo(40+sw,4);ctx.stroke();ctx.fillStyle='#e0b24a';ctx.beginPath();ctx.moveTo(34+sw,2);ctx.lineTo(54+sw,2);ctx.lineTo(58+sw,12);ctx.lineTo(30+sw,12);ctx.closePath();ctx.fill();ctx.strokeStyle='#a8822a';ctx.lineWidth=1.5;for(var bi=0;bi<5;bi++){ctx.beginPath();ctx.moveTo(36+sw+bi*4,4);ctx.lineTo(34+sw+bi*5,12);ctx.stroke();}
+  if(t-lastDust>.28){lastDust=t;var m=ctx.getTransform();spawn(x+(48+sw)*s,y+8*s,2,'rgba(150,140,125,.8)',1.2);}}
+ else if(mood==='happy'){ctx.font='26px system-ui';ctx.textAlign='center';ctx.fillText('👍',34,-26);}
+ ctx.restore();}
+function mukha(x,y,s,mood,talk){var hop=mood==='happy'?Math.abs(Math.sin(t*6))*10:Math.sin(t*5)*2;ctx.save();ctx.translate(x,y-hop*s);ctx.scale(s,s);
+ ctx.fillStyle='#4a4f57';rr(-14,-40,28,40,9);ctx.fill();ctx.fillStyle='#ff8a1f';rr(-14,-40,28,30,9);ctx.fill();ctx.fillStyle='#e0701a';ctx.fillRect(-14,-30,28,3);
+ ctx.fillStyle='#e8b48a';ctx.beginPath();ctx.arc(-18,-24,6,0,7);ctx.arc(18,-24+(mood==='happy'?-12:0),6,0,7);ctx.fill();
+ ctx.fillStyle='#fff';ctx.fillRect(-12,-4,10,6);ctx.fillRect(2,-4,10,6);ctx.fillStyle='#222';rr(-14,0,13,6,3);ctx.fill();rr(1,0,13,6,3);ctx.fill();
+ ctx.fillStyle='#e8b48a';ctx.beginPath();ctx.arc(0,-54,15,0,7);ctx.fill();
+ ctx.fillStyle='#1c1c1c';ctx.fillRect(-16,-58,4,10);ctx.fillRect(12,-58,4,10);
+ ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(-6,-54,5,0,7);ctx.arc(6,-54,5,0,7);ctx.fill();ctx.fillStyle='#222';ctx.beginPath();ctx.arc(-5,-54,2.2,0,7);ctx.arc(7,-54,2.2,0,7);ctx.fill();
+ ctx.strokeStyle='#222';ctx.lineWidth=2;ctx.beginPath();ctx.arc(-6,-54,7,0,7);ctx.moveTo(19,-54);ctx.arc(6,-54,7,0,7);ctx.moveTo(1,-54);ctx.lineTo(-1,-54);ctx.stroke();ctx.fillStyle='rgba(180,220,255,.35)';ctx.beginPath();ctx.arc(-6,-54,7,0,7);ctx.arc(6,-54,7,0,7);ctx.fill();
+ ctx.fillStyle='#2f8f9d';ctx.beginPath();ctx.arc(0,-60,16,Math.PI,0);ctx.fill();ctx.fillStyle='#24707b';rr(-17,-62,34,8,3);ctx.fill();ctx.fillStyle='#e8e8e8';ctx.beginPath();ctx.arc(0,-77,5,0,7);ctx.fill();
+ if(talk){var o=Math.abs(Math.sin(t*13));ctx.fillStyle='#7a2a1a';ctx.beginPath();ctx.ellipse(0,-45,5,2+o*4,0,0,7);ctx.fill();ctx.fillStyle='#fff';ctx.fillRect(-3,-47,6,2);}
+ else{ctx.strokeStyle='#7a2a1a';ctx.lineWidth=2.5;ctx.lineCap='round';ctx.beginPath();ctx.arc(0,-48,5,.2,Math.PI-.2);ctx.stroke();}
+ ctx.font='18px system-ui';ctx.textAlign='center';ctx.fillText('🔧',-24,-14);ctx.restore();}
+var CHAT=['А вы знали, что у машины четыре колеса? А у меня — два кроссовка!','Шеф, я принёс кофе! Ой… уже выпил.','Шукур сказал не болтать. Я молчу. Уже молчу. Почти…','Масло, масло, где же ты, масло?','Вчера нашёл гайку! А потом потерял. Но я нашёл!','Хотите расскажу, как я чинил велосипед? Он был красный!','Я могу говорить без остановки! Вот прямо сейчас…','А знаете, почему шины чёрные? Так им не видно грязи!'];
+function talking(){return (t%5.5)<=4.6;}
+function chatter(x,headY,by){if(!talking())return;var P=5.5,i=Math.floor(t/P)%CHAT.length,w=Math.min(210,W*.58);bubble(W-w-8,by,w,T(CHAT[i]),x,headY);}
+function spawn(x,y,n,col,sp){for(var i=0;i<n;i++)fx.push({x:x,y:y,vx:rnd(-1,1)*(sp||3),vy:rnd(-1.2,.4)*(sp||3),l:1,c:col||'#ffd34d',r:rnd(2,5)});}
+function drawFx(dt){fx.forEach(function(p){p.x+=p.vx;p.y+=p.vy;p.vy+=.15;p.l-=dt*1.6;ctx.globalAlpha=Math.max(0,p.l);ctx.fillStyle=p.c;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,7);ctx.fill();});ctx.globalAlpha=1;fx=fx.filter(function(p){return p.l>0;});}
+function fmtC(n){return n+' 💰';}
+var LEVELS=[0,5,15,35,70],LN=['Подмастерье','Механик','Мастер','Старший мастер','Шукур-босс 😎'];
+function glv(){var l=0;for(var i=0;i<LEVELS.length;i++)if(S.done+S.built*2>=LEVELS[i])l=i;return l;}
+// ---------- jobs ----------
+var TYPES=['tire','battery','oil','dent','bulb'];
+var TIC={tire:'🛞',battery:'🔋',oil:'🛢️',dent:'🔨',bulb:'💡'};
+var TNAME={tire:'Колесо',battery:'Аккумулятор',oil:'Масло',dent:'Кузов',bulb:'Фары'};
+var SYM={tire:['Колесо спустило, еду как по ухабам!','Что-то шипит у колеса…'],battery:['Не заводится, только щёлкает!','Фары тусклые, стартер молчит.'],oil:['Загорелась лампочка масла!','Двигатель стучит, масло давно не менял.'],dent:['Кто-то помял дверь на парковке.','Поцарапали и помяли бок машины.'],bulb:['Одна фара перегорела, ночью не видно.','Не горит фара, помоги!']};
+var CARS=['sedan','taxi','police'],CCOL=['#2f6fe8','#e84a4a','#2fb36a','#8e5cf7','#ff8a1f'],CLI=['👨','👩','👴','👨‍🦱','🧑'],PAR={tire:30,battery:22,oil:20,dent:30,bulb:22},BASE={tire:12,battery:10,oil:9,dent:13,bulb:10};
+function newJob(){var ty=pick(TYPES);var v=pick(CARS);job={no:S.done+1,type:ty,v:v,col:v==='sedan'?pick(CCOL):undefined,cli:pick(CLI),sym:pick(SYM[ty]),mis:0,x:-220,t0:0,stars:3,coins:0,wrong:{},msg:'',mood:'ok',rush:S.done>=3&&Math.random()<.25};}
+function startRepair(){newJob();state='arrive';}
+function carX(){return W/2;}
+function drawCarAt(x,y,sc){drawVeh(job.v,x,y,sc,false,job.col);}
+var CSC=1;
+var TIPS=['Масло меняй примерно раз в 10 000 км.','Давление в шинах проверяй раз в месяц.','Красный зажим — плюс, чёрный — минус.','Перед выездом всегда пристегни ремень!','Лампы бывают разной формы — смотри на цоколь.','Тормозной путь зимой длиннее — не лихачь.','Аккумулятор зимой садится быстрее.','Болты колеса затягивай крест-накрест.'];
+function drawArrive(){CSC=Math.min(1.5,(W-30)/200);bgG();var sa=satop();if(job.rush){ctx.fillStyle='#e23a3a';rr(W/2-100,sa+44,200,26,13);ctx.fill();ctx.fillStyle='#fff';ctx.font='bold 14px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(T('⚡ СРОЧНО: монеты ×2'),W/2,sa+57);}CSC=Math.min(1.5,(W-30)/200);job.x+=(carX()-job.x)*.07;drawCarAt(job.x,H*.46,CSC);
+ ctx.font='34px system-ui';ctx.textAlign='center';ctx.fillText(job.cli,W*.2,H*.28);
+ bubble(W*.08,sa+78,W*.84,T(job.sym),W*.2,H*.28-24);
+ shukur(W*.2,H*.88,1.5,'ok',true);mukha(W*.9,H*.97,.8,'ok',false);
+ if(Math.abs(job.x-carX())<3){btn(W*.34,H*.72,W*.6,56,T('🔍 Осмотреть'),function(){state='diag';job.msg='';},true,20);}
+ iconBtn(10,sa+10,44,'←',function(){state='menu';});}
+var HINTS={tire:'Присмотрись к колёсам!',battery:'Подумай: что даёт искру?',oil:'Лампочка масла — это про масло!',dent:'Это про железо — кузов!',bulb:'Это про свет — фары!'};
+var lastAct=0;
+function askMukha(){if(S.coins<5){toast(T('Мало денег 💰'));return;}var w=TYPES.filter(function(x){return x!==job.type&&!job.wrong[x];});if(!w.length)return;S.coins-=5;save2();var x=pick(w);job.wrong[x]=1;toast(T('Муха: это точно не ')+TIC[x]+' '+T(TNAME[x])+'!');beep(600,.1,'triangle',.08);}
+function drawDiag(){bgG();var sa=satop();drawCarAt(W/2,H*.3,CSC*.9);
+ bubble(W*.06,sa+52,W*.88,job.msg?T(job.msg):T('Что сломано? Выбери деталь!'),W*.2,H*.5-6);
+ shukur(W*.12,H*.52,.95,job.mood,job.mood==='ok');
+ var n=TYPES.length,bw=Math.min(300,W-40),bh=64,x=(W-bw)/2,y=H*.46+10;ctx.textAlign='center';
+ var cols=2,cw=(bw-12)/2;
+ TYPES.forEach(function(ty,i){var cx_=x+(i%cols)*(cw+12),cy_=H*.56+Math.floor(i/cols)*(bh+10);var bad=job.wrong[ty];btn(cx_,cy_,cw,bh,TIC[ty]+' '+T(TNAME[ty]),function(){pickDiag(ty);},false,15,bad);});
+ mukha(W*.88,H*.5,.95,'ok');btns.push({x:W*.74,y:H*.5-70,w:W*.26,h:80,fn:askMukha});ctx.fillStyle='#fff';ctx.font='bold 11px system-ui';var lw=Math.min(150,W*.42);rr(W-lw-6,H*.5-104,lw,26,10);ctx.fill();ctx.fillStyle='#2a3440';ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='bold 12px system-ui';ctx.fillText(T('Спросить Муху · 5 💰'),W-lw/2-6,H*.5-91);
+ iconBtn(10,sa+10,44,'←',function(){state='menu';});}
+function pickDiag(ty){if(ty===job.type){beep(660,.1,'triangle',.1);job.mood='happy';startFix();}else{job.wrong[ty]=1;job.mis++;job.mood='angry';job.msg='Хм, не похоже. Проверь ещё!';beep(180,.2,'sawtooth',.08);buzz('error');shake=.3;}}
+// ---------- fix scenes ----------
+var FIX={};
+function startFix(){state='fix';job.t0=performance.now();F={};FIX[job.type].init();}
+function fixDone(){
+ if(job.extra){var c=6+glv()*2;job.coins+=c;job.bonus=c;S.coins+=c;save2();jingle();buzz('success');toPay();return;}
+ var tm=(performance.now()-job.t0)/1000,par=PAR[job.type],s=3;if(tm>par)s--;if(tm>par*2)s--;s-=Math.min(2,job.mis);s=Math.max(1,s);job.stars=s;job.time=tm;job.coins=BASE[job.type]+s*4+glv()*2;if(job.rush&&s>=2)job.coins*=2;job.tip=pick(TIPS);S.coins+=job.coins;S.done++;S.stars+=s;save2();lvCheck();
+ try{QS.done(job.coins);}catch(e){}try{LB.submit(S.done*5+S.stars);}catch(e){}jingle();buzz('success');
+ if(S.done>=2&&Math.random()<.3){var o=TYPES.filter(function(x){return x!==job.type;});job.oops={ty:pick(o),who:Math.random()<.7?'mukha':'shukur'};oopsT=0;state='oops';job.mood='ok';return;}
+ toPay();}
+function toPay(){state='pay';job.x=W/2;job.drive=0;job.mood='happy';}
+var oopsT=0;
+var OOPS={tire:'Домкрат соскочил — колесо слетело!',battery:'Клеммы сорвало — аккумулятор отключился!',oil:'Масло пролилось — снова надо доливать!',dent:'Тележка задела дверь — новая вмятина!',bulb:'Отвёртка упала — фара разбилась!'};
+function drawOops(){bgG();var sa=satop();oopsT+=.016;CSC=Math.min(1.5,(W-30)/200);drawCarAt(W/2,H*.3,CSC*.85);var o=job.oops,mk=o.who==='mukha';
+ if(oopsT>.3){ctx.font=(48+Math.sin(oopsT*20)*4)+'px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('💥',W/2+(o.ty==='tire'?-60:40),H*.3+10);}
+ shukur(W*.2,H*.8,1.3,oopsT>1.8||!mk?(mk?'angry':'ok'):'ok');mukha(W*.84,H*.8,1.1,mk&&oopsT<1.8?'ok':'happy',false);
+ var A=mk?T('Ой! Кажется, я что-то задел…'):T('Ого! Это что, я задел?!'),B=mk?T('Муха-а-а!'):T('Шеф, вы тоже ошибаетесь? Хи-хи!');
+ if(oopsT<1.8)bubble(mk?W*.45:W*.06,sa+64+H*.32,W*.5,A,mk?W*.84:W*.2,mk?H*.8-100:H*.8-110);
+ else{bubble(mk?W*.06:W*.45,sa+64+H*.32,W*.5,B,mk?W*.2:W*.84,mk?H*.8-110:H*.8-100);}
+ if(oopsT>2.4){ctx.fillStyle='#fff';ctx.font='bold 17px system-ui';ctx.textAlign='center';ctx.strokeStyle='rgba(0,0,0,.5)';ctx.lineWidth=4;var m=T(OOPS[o.ty]);ctx.strokeText(m,W/2,H*.5+12);ctx.fillText(m,W/2,H*.5+12);
+  var bw=Math.min(300,W-48);btn((W-bw)/2,H*.55,bw,56,T('🔧 Починить вместе'),function(){job.extra=true;job.type=o.ty;job.mis=0;job.mood='ok';startFix();job.extra=true;},true,19);}}
+function fixTop(){return satop()+50;}
+function fixHud(title){var sa=satop();iconBtn(10,sa+10,44,'←',function(){state='menu';});ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='#fff';ctx.font='bold 18px system-ui';ctx.strokeStyle='rgba(0,0,0,.5)';ctx.lineWidth=4;ctx.strokeText(T(title),W/2,sa+60);ctx.fillText(T(title),W/2,sa+60);ctx.font='bold 14px system-ui';ctx.fillStyle='#fff';ctx.textAlign='right';ctx.fillText(((performance.now()-job.t0)/1000).toFixed(0)+' '+T('сек'),W-14,sa+28);}
+function bolt(x,y,r,rot,col){ctx.save();ctx.translate(x,y);ctx.rotate(rot);ctx.fillStyle=col||'#9aa5b1';ctx.beginPath();for(var i=0;i<6;i++){var a=i*Math.PI/3;ctx.lineTo(Math.cos(a)*r,Math.sin(a)*r);}ctx.closePath();ctx.fill();ctx.strokeStyle='#5b6672';ctx.lineWidth=2;ctx.stroke();ctx.fillStyle='#6f7a86';ctx.beginPath();ctx.arc(0,0,r*.45,0,7);ctx.fill();ctx.restore();}
+function tireDraw(x,y,R,flat){ctx.fillStyle='#1c1c22';ctx.beginPath();if(flat)ctx.ellipse(x,y+R*.12,R,R*.88,0,0,7);else ctx.arc(x,y,R,0,7);ctx.fill();ctx.fillStyle='#8e98a4';ctx.beginPath();ctx.arc(x,y,R*.66,0,7);ctx.fill();ctx.fillStyle='#b8c1cb';ctx.beginPath();ctx.arc(x,y,R*.5,0,7);ctx.fill();ctx.strokeStyle='#6b7480';ctx.lineWidth=2;for(var i=0;i<5;i++){var a=i*Math.PI*2/5;ctx.beginPath();ctx.moveTo(x+Math.cos(a)*R*.2,y+Math.sin(a)*R*.2);ctx.lineTo(x+Math.cos(a)*R*.62,y+Math.sin(a)*R*.62);ctx.stroke();}}
+// TIRE
+FIX.tire={init:function(){var R=Math.min(W*.3,115);F={ph:0,hx:W/2,hy:H*.38,R:R,need:[0,3,2,1][S.lv.wr],bolts:[],oldv:0,oldx:0,rolling:false,nw:{x:W/2,y:H*.8,drag:false,placed:false}};for(var i=0;i<5;i++)F.bolts.push({a:-Math.PI/2+i*Math.PI*2/5,taps:0,off:false,rot:0});},
+ draw:function(){var f=F;fixHud('Поменяй колесо');
+  ctx.fillStyle='#4b535c';ctx.beginPath();ctx.arc(f.hx,f.hy,f.R*1.08,0,7);ctx.fill();
+  if(f.ph===0||f.rolling){var ox=f.rolling?f.oldx:0,oy=f.rolling?Math.abs(Math.sin(f.oldx*.03))*-10:0;tireDraw(f.hx+ox,f.hy+oy,f.R,true);if(!f.rolling){ctx.font='28px system-ui';ctx.textAlign='center';ctx.fillText('💨',f.hx+f.R*.9,f.hy+f.R*.5);}}
+  else{ctx.fillStyle='#8e98a4';ctx.beginPath();ctx.arc(f.hx,f.hy,f.R*.5,0,7);ctx.fill();ctx.fillStyle='#3a424b';ctx.beginPath();ctx.arc(f.hx,f.hy,f.R*.16,0,7);ctx.fill();}
+  if(f.ph===1&&!f.nw.placed){var n=f.nw;tireDraw(n.x,n.y,f.R*.75,false);ctx.font='bold 15px system-ui';ctx.fillStyle='#fff';ctx.textAlign='center';ctx.fillText(T('Тяни новое колесо на ось ☝️'),W/2,f.hy-f.R-18);}
+  if(f.ph===1&&f.nw.placed)tireDraw(f.hx,f.hy,f.R,false);
+  if(f.ph===2||f.ph===0){f.bolts.forEach(function(b){if(b.off&&f.ph===0)return;var bx=f.hx+Math.cos(b.a)*f.R*.36,by=f.hy+Math.sin(b.a)*f.R*.36,fr=f.ph===0?b.taps/f.need:1-b.taps/f.need;bolt(bx,by,f.R*.12,b.rot,f.ph===2&&!b.off?'#d7dde3':'#9aa5b1');if(!b.off){ctx.strokeStyle='rgba(255,255,255,.8)';ctx.lineWidth=3;ctx.beginPath();ctx.arc(bx,by,f.R*.17,-Math.PI/2,-Math.PI/2+Math.PI*2*(f.ph===0?fr:1-fr));ctx.stroke();}});}
+  ctx.fillStyle='#fff';ctx.font='bold 16px system-ui';ctx.textAlign='center';ctx.strokeStyle='rgba(0,0,0,.45)';ctx.lineWidth=4;var msg=f.ph===0?'Откручивай болты — тапай по ним 🔧':f.ph===1?'':'Закрути болты обратно 🔧';if(msg){ctx.strokeText(T(msg),W/2,H*.62);ctx.fillText(T(msg),W/2,H*.62);}},
+ update:function(dt){var f=F;if(f.rolling){f.oldx+=420*dt;if(f.oldx>W){f.rolling=false;f.ph=1;}}},
+ down:function(x,y){var f=F;if(f.rolling)return;
+  if(f.ph===0||f.ph===2){f.bolts.forEach(function(b){var bx=f.hx+Math.cos(b.a)*f.R*.36,by=f.hy+Math.sin(b.a)*f.R*.36;if(b.off||dist(x,y,bx,by)>f.R*.22)return;b.taps++;b.rot+=1.1*(f.ph===0?-1:1);tick();beep(300+b.taps*60,.05,'square',.05);spawn(bx,by,3,'#dfe5ea',2);
+   if(b.taps>=f.need){b.off=true;if(f.ph===0)spawn(bx,by,8,'#aab4be',3);}});
+   if(f.ph===0&&f.bolts.every(function(b){return b.off;})){f.rolling=true;f.oldx=0;beep(140,.4,'sawtooth',.08);}
+   if(f.ph===2&&f.bolts.every(function(b){return b.off;}))fixDone();}
+  else if(f.ph===1&&!f.nw.placed){if(dist(x,y,f.nw.x,f.nw.y)<f.R*.8)f.nw.drag=true;}},
+ move:function(x,y){var f=F;if(f.ph===1&&f.nw.drag){f.nw.x=x;f.nw.y=y;}},
+ up:function(){var f=F;if(f.ph===1&&f.nw.drag){f.nw.drag=false;if(dist(f.nw.x,f.nw.y,f.hx,f.hy)<f.R*.7){f.nw.placed=true;f.ph=2;f.bolts.forEach(function(b){b.off=false;b.taps=0;});beep(500,.1,'triangle',.1);spawn(f.hx,f.hy,10,'#fff',3);}else{f.nw.x=W/2;f.nw.y=H*.8;}}}};
+// BATTERY
+FIX.battery={init:function(){var bw=Math.min(W*.72,270);F={ph:0,bx:W/2,by:H*.34,bw:bw,bh:bw*.5,snap:[0,40,60,84][S.lv.bat],cl:[{c:'#e23a3a',sg:'+',x:W*.26,y:H*.74,hx:W*.26,hy:H*.74,on:false,drag:false},{c:'#222',sg:'−',x:W*.74,y:H*.74,hx:W*.74,hy:H*.74,on:false,drag:false}],start:0,flash:0};},
+ term:function(i){var f=F;return [f.bx-f.bw*.3,f.by-f.bh*.5-12];},
+ tpos:function(i){var f=F;return i===0?[f.bx-f.bw*.3,f.by-f.bh*.5-14]:[f.bx+f.bw*.3,f.by-f.bh*.5-14];},
+ draw:function(){var f=F;fixHud('Заведи машину');
+  ctx.fillStyle='#2f6fb0';rr(f.bx-f.bw/2,f.by-f.bh/2,f.bw,f.bh,12);ctx.fill();ctx.fillStyle='#244e7d';ctx.fillRect(f.bx-f.bw/2,f.by-f.bh/2,f.bw,16);ctx.fillStyle='#fff';ctx.font='bold 22px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('12V ⚡',f.bx,f.by+8);
+  for(var i=0;i<2;i++){var p=FIX.battery.tpos(i);ctx.fillStyle='#b9c2cc';rr(p[0]-14,p[1]-10,28,22,5);ctx.fill();ctx.fillStyle=i===0?'#e23a3a':'#222';ctx.font='bold 24px system-ui';ctx.fillText(i===0?'+':'−',p[0],p[1]-30);if(!f.cl[i].on){ctx.strokeStyle='rgba(255,255,255,.6)';ctx.setLineDash([5,4]);ctx.lineWidth=2;ctx.beginPath();ctx.arc(p[0],p[1],f.snap*.5+8,0,7);ctx.stroke();ctx.setLineDash([]);}}
+  f.cl.forEach(function(c,i){ctx.strokeStyle=c.c;ctx.lineWidth=8;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(c.hx,H*.96);ctx.bezierCurveTo(c.hx,H*.9,c.x,c.y+60,c.x,c.y);ctx.stroke();ctx.fillStyle=c.c;rr(c.x-16,c.y-14,32,28,8);ctx.fill();ctx.fillStyle='#fff';ctx.font='bold 18px system-ui';ctx.fillText(c.sg,c.x,c.y+1);});
+  ctx.fillStyle='#fff';ctx.font='bold 16px system-ui';ctx.textAlign='center';ctx.strokeStyle='rgba(0,0,0,.45)';ctx.lineWidth=4;var m=F.ph===0?'Красный зажим на «+», чёрный на «−»':F.ph===1?'Теперь поверни ключ 🔑':'Мотор заурчал! 🎉';ctx.strokeText(T(m),W/2,H*.58);ctx.fillText(T(m),W/2,H*.58);
+  if(f.ph===1)btn(W/2-110,H*.64,220,60,T('🔑 Завести'),function(){f.ph=2;f.start=1;beep(120,.7,'sawtooth',.1);buzz('success');},true,22);
+  if(f.ph===2){ctx.font='60px system-ui';ctx.fillText(Math.floor(t*8)%2?'💨':'🚗',W/2,H*.7);}},
+ update:function(dt){var f=F;if(f.ph===2){f.start+=dt;if(f.start>1.6)fixDone();}},
+ down:function(x,y){var f=F;if(f.ph!==0)return;f.cl.forEach(function(c){if(!c.on&&dist(x,y,c.x,c.y)<36)c.drag=true;});},
+ move:function(x,y){var f=F;f.cl.forEach(function(c){if(c.drag){c.x=x;c.y=y;}});},
+ up:function(){var f=F;f.cl.forEach(function(c,i){if(!c.drag)return;c.drag=false;var mine=FIX.battery.tpos(i),other=FIX.battery.tpos(1-i);
+  if(dist(c.x,c.y,mine[0],mine[1])<f.snap){c.on=true;c.x=mine[0];c.y=mine[1]+4;beep(520,.1,'triangle',.1);spawn(c.x,c.y,8,'#ffd34d',3);}
+  else if(dist(c.x,c.y,other[0],other[1])<f.snap){job.mis++;toast(T('Не туда! Красный — «+», чёрный — «−»'));beep(160,.3,'sawtooth',.1);spawn(c.x,c.y,14,'#ff8a1f',5);buzz('error');c.x=c.hx;c.y=c.hy;}
+  else{c.x=c.hx;c.y=c.hy;}});
+  if(f.cl[0].on&&f.cl[1].on)f.ph=1;}};
+// OIL
+FIX.oil={init:function(){var w=[0,.16,.24,.32][S.lv.oil],lo=rnd(.5,.62);F={lvl:rnd(.08,.2),lo:lo,hi:lo+w,rate:[0,.22,.34,.5][S.lv.oil],ok:0};},
+ draw:function(){var f=F;fixHud('Долей масло до зелёной зоны');var gx=W/2-26,gy=H*.2,gw=52,gh=H*.34;
+  ctx.fillStyle='#e8edf1';rr(gx,gy,gw,gh,14);ctx.fill();ctx.strokeStyle='#6b7480';ctx.lineWidth=4;ctx.stroke();
+  ctx.fillStyle='rgba(76,175,80,.55)';ctx.fillRect(gx+4,gy+gh*(1-f.hi),gw-8,gh*(f.hi-f.lo));
+  ctx.fillStyle='#c98a0a';rr(gx+4,gy+gh*(1-f.lvl),gw-8,gh*f.lvl-2,8);ctx.fill();
+  ctx.fillStyle='#fff';ctx.font='bold 13px system-ui';ctx.textAlign='left';ctx.fillText('MAX',gx+gw+8,gy+6);ctx.fillText('MIN',gx+gw+8,gy+gh-4);
+  if(held==='pour'){ctx.fillStyle='#c98a0a';ctx.fillRect(W/2-4,gy-60,8,60+gh*(1-f.lvl));ctx.font='46px system-ui';ctx.textAlign='center';ctx.fillText('🛢️',W/2+54,gy-44);}else{ctx.font='46px system-ui';ctx.textAlign='center';ctx.fillText('🛢️',W/2+54,gy-44);}
+  var bw=Math.min(150,(W-50)/2),y=H*.66;holdBtn('pour',W/2-bw-8,y,bw,64,T('Лить ⬇'),19);holdBtn('drain',W/2+8,y,bw,64,T('Слить ⬆'),19);
+  btn(W/2-110,y+78,220,56,T('✅ Проверить'),function(){var f=F;if(f.lvl>=f.lo&&f.lvl<=f.hi){fixDone();}else{job.mis++;toast(f.lvl<f.lo?T('Мало масла!'):T('Слишком много!'));beep(180,.2,'sawtooth',.08);buzz('error');}},true,20);},
+ update:function(dt){var f=F;if(held==='pour'){f.lvl=Math.min(1,f.lvl+f.rate*dt);if(Math.floor(t*12)%3===0)beep(260,.03,'sine',.03);}if(held==='drain')f.lvl=Math.max(0,f.lvl-f.rate*dt);},down:function(){},move:function(){},up:function(){}};
+// DENT
+FIX.dent={init:function(){var px=W*.08,py=H*.2,pw=W*.84,ph=H*.34,n=3+(S.lv.ha<2?1:0),hp=[0,3,2,1][S.lv.ha],d=[];for(var i=0;i<n;i++)d.push({x:px+pw*(.18+.64*(i%3)/2+(i>2?.1:0)),y:py+ph*(i%2?.66:.34),r:rnd(26,34),hp:hp,hp0:hp,p:0,sw:0});F={ph:0,px:px,py:py,pw:pw,phh:ph,d:d,hit:null};},
+ draw:function(){var f=F;fixHud(f.ph===0?'Выправи вмятины молотком':'Закрась пятна');
+  ctx.fillStyle=job.col||'#e8e8ee';rr(f.px,f.py,f.pw,f.phh,26);ctx.fill();ctx.fillStyle='rgba(255,255,255,.25)';rr(f.px+10,f.py+10,f.pw-20,f.phh*.3,18);ctx.fill();ctx.strokeStyle='rgba(0,0,0,.35)';ctx.lineWidth=3;rr(f.px,f.py,f.pw,f.phh,26);ctx.stroke();
+  f.d.forEach(function(d){var fr=d.hp/d.hp0;if(f.ph===0&&d.hp>0){var g=ctx.createRadialGradient(d.x-6,d.y-6,3,d.x,d.y,d.r);g.addColorStop(0,'rgba(0,0,0,.05)');g.addColorStop(1,'rgba(0,0,0,'+(.15+.4*fr)+')');ctx.fillStyle=g;ctx.beginPath();ctx.arc(d.x,d.y,d.r*(.7+.3*fr),0,7);ctx.fill();ctx.strokeStyle='rgba(0,0,0,.3)';ctx.lineWidth=2;ctx.stroke();}
+   else{var pc=d.p>=1?(job.col||'#e8e8ee'):'#8a939c';if(d.hp<=0){ctx.fillStyle=pc;ctx.beginPath();ctx.arc(d.x,d.y,d.r*.9,0,7);ctx.fill();if(d.p<1){ctx.globalAlpha=d.p;ctx.fillStyle=job.col||'#e8e8ee';ctx.beginPath();ctx.arc(d.x,d.y,d.r*.9,0,7);ctx.fill();ctx.globalAlpha=1;}}}
+   if(d.sw>0){ctx.font='34px system-ui';ctx.textAlign='center';ctx.fillText('🔨',d.x+16,d.y-18+d.sw*10);d.sw-=.12;}});
+  if(f.ph===1&&ptr.down){ctx.font='36px system-ui';ctx.textAlign='center';ctx.fillText('🎨',ptr.x,ptr.y-20);}
+  ctx.fillStyle='#fff';ctx.font='bold 15px system-ui';ctx.textAlign='center';ctx.strokeStyle='rgba(0,0,0,.45)';ctx.lineWidth=4;var m=f.ph===0?'Тапай по вмятинам':'Води пальцем по серым пятнам — покраска';ctx.strokeText(T(m),W/2,f.py+f.phh+30);ctx.fillText(T(m),W/2,f.py+f.phh+30);},
+ update:function(){},
+ down:function(x,y){var f=F;if(f.ph===0){f.d.forEach(function(d){if(d.hp>0&&dist(x,y,d.x,d.y)<d.r+14){d.hp--;d.sw=1;beep(200+d.hp*80,.08,'square',.07);tick();spawn(d.x,d.y,5,'#cfd6dc',3);if(d.hp<=0)beep(700,.1,'triangle',.08);}});
+   if(f.d.every(function(d){return d.hp<=0;}))f.ph=1;}},
+ move:function(x,y){var f=F;if(f.ph!==1)return;var m=Math.hypot(x-ptr.lx,y-ptr.ly);f.d.forEach(function(d){if(d.p<1&&dist(x,y,d.x,d.y)<d.r+16){d.p=Math.min(1,d.p+m/(d.r*5)*(1+S.lv.ha*.3));if(d.p>=1)spawn(d.x,d.y,8,job.col||'#fff',3);}});
+   if(f.d.every(function(d){return d.p>=1;}))fixDone();},up:function(){}};
+// BULB
+FIX.bulb={init:function(){var K=Math.floor(Math.random()*3),ord=[0,1,2].sort(function(){return Math.random()-.5;}),b=[];ord.forEach(function(k,i){var x=W*(.2+.3*i),y=H*.78;b.push({k:k,x:x,y:y,hx:x,hy:y,drag:false});});F={K:K,b:b,sx:W/2,sy:H*.34,sr:Math.min(W*.26,100),snap:[0,40,55,75][S.lv.bulb],ph:0,tw:0,twt:[0,1.6,1.0,.5][S.lv.bulb],on:0};},
+ shape:function(k,x,y,s,col,line){ctx.beginPath();if(k===0)ctx.arc(x,y,s*.55,0,7);else if(k===1){rr(x-s*.28,y-s*.8,s*.56,s*1.6,s*.28);}else{ctx.arc(x-s*.32,y,s*.36,0,7);ctx.moveTo(x+s*.68,y);ctx.arc(x+s*.32,y,s*.36,0,7);}if(line){ctx.strokeStyle=col;ctx.lineWidth=3;ctx.stroke();}else{ctx.fillStyle=col;ctx.fill();}},
+ draw:function(){var f=F,S_=FIX.bulb;fixHud('Поставь подходящую лампу');
+  ctx.fillStyle='#2b323a';ctx.beginPath();ctx.arc(f.sx,f.sy,f.sr*1.15,0,7);ctx.fill();ctx.fillStyle='#cfd8e0';ctx.beginPath();ctx.arc(f.sx,f.sy,f.sr,0,7);ctx.fill();
+  if(f.ph===0){ctx.setLineDash([6,5]);S_.shape(f.K,f.sx,f.sy,f.sr*.9,'#2b323a',true);ctx.setLineDash([]);}
+  else{var gl=f.on;ctx.fillStyle=gl?'#fff6b0':'#f1e7a6';S_.shape(f.K,f.sx,f.sy,f.sr*.9,gl?'#fff6b0':'#f1e7a6',false);if(gl){var g=ctx.createRadialGradient(f.sx,f.sy,10,f.sx,f.sy,f.sr*2.2);g.addColorStop(0,'rgba(255,246,176,.8)');g.addColorStop(1,'rgba(255,246,176,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(f.sx,f.sy,f.sr*2.2,0,7);ctx.fill();}}
+  if(f.ph===0){f.b.forEach(function(b){ctx.fillStyle='rgba(255,255,255,.9)';rr(b.x-44,b.y-50,88,100,16);ctx.fill();S_.shape(b.k,b.x,b.y,f.sr*.7,'#f4d66a',false);S_.shape(b.k,b.x,b.y,f.sr*.7,'#a8892a',true);});}
+  ctx.fillStyle='#fff';ctx.font='bold 15px system-ui';ctx.textAlign='center';ctx.strokeStyle='rgba(0,0,0,.45)';ctx.lineWidth=4;var m=f.ph===0?'Найди лампу такой же формы и перетащи в фару':f.ph===1?'Зажми кнопку и закрути!':'Горит! 🎉';ctx.strokeText(T(m),W/2,H*.64);ctx.fillText(T(m),W/2,H*.64);
+  if(f.ph===1){holdBtn('twist',W/2-110,H*.7,220,64,T('🔄 Закрутить'),21);ctx.fillStyle='rgba(255,255,255,.7)';rr(W/2-110,H*.7+74,220,12,6);ctx.fill();ctx.fillStyle='#4caf50';rr(W/2-110,H*.7+74,Math.max(6,220*f.tw/f.twt),12,6);ctx.fill();}},
+ update:function(dt){var f=F;if(f.ph===1){if(held==='twist'){f.tw+=dt;if(Math.floor(t*10)%2===0)tick();}else f.tw=Math.max(0,f.tw-dt*.5);if(f.tw>=f.twt){f.ph=2;f.on=1;beep(800,.2,'triangle',.1);buzz('success');}}if(f.ph===2){f.on+=dt;if(f.on>2)fixDone();}},
+ down:function(x,y){var f=F;if(f.ph!==0)return;f.b.forEach(function(b){if(dist(x,y,b.x,b.y)<50)b.drag=true;});},
+ move:function(x,y){F.b.forEach(function(b){if(b.drag){b.x=x;b.y=y;}});},
+ up:function(){var f=F;f.b.forEach(function(b){if(!b.drag)return;b.drag=false;if(dist(b.x,b.y,f.sx,f.sy)<f.sr*.7+f.snap*.4){if(b.k===f.K){f.ph=1;beep(520,.1,'triangle',.1);}else{job.mis++;toast(T('Не подходит по форме!'));beep(160,.25,'sawtooth',.08);buzz('error');b.x=b.hx;b.y=b.hy;}}else{b.x=b.hx;b.y=b.hy;}});}};
+function drawFix(){bgG();FIX[job.type].draw();if(performance.now()-Math.max(lastAct,job.t0)>9000){var sa=satop(),tx={tire:'Нажимай на болты, пока они не выкрутятся!',battery:'Красный зажим на плюс, чёрный на минус!',oil:'Держи «Лить», пока уровень не дойдёт до зелёного!',dent:'Тапай по вмятинам, потом води пальцем по серому!',bulb:'Подбери лампу по форме и закрути!'}[job.type];bubble(W*.06,sa+84,W*.88,'Муха: '+T(tx),W*.85,sa+84+62);mukha(W*.86,sa+176,.65,'ok');}}
+// ---------- pay ----------
+function drawPay(){bgG();var sa=satop();job.drive+=.016;var x=W/2+Math.max(0,job.drive-1.8)*260;drawCarAt(x,H*.3,CSC*.85);
+ if(job.drive<1.8&&Math.floor(job.drive*6)%2===0){ctx.fillStyle='rgba(255,246,176,.9)';ctx.beginPath();ctx.arc(x+95*CSC*.85,H*.3+4*CSC,10,0,7);ctx.fill();}
+ ctx.fillStyle='rgba(255,255,255,.96)';rr(W/2-150,H*.42,300,150,22);ctx.fill();ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='#2a3440';ctx.font='bold 26px system-ui';ctx.fillText(T('Готово!'),W/2,H*.42+30);
+ ctx.fillStyle='#f0a000';ctx.font='38px system-ui';ctx.fillText('★'.repeat(job.stars)+'☆'.repeat(3-job.stars),W/2,H*.42+72);ctx.fillStyle='#2a3440';ctx.font='bold 18px system-ui';ctx.fillText(T('Заработано: +')+job.coins+' 💰',W/2,H*.42+112);if(job.bonus){ctx.font='12px system-ui';ctx.fillStyle='#c25a10';ctx.fillText(T('в том числе бонус за общий ремонт: +')+job.bonus,W/2,H*.42+134);}
+ shukur(W*.12,H*.725,.85,job.stars>=2?'happy':'ok');
+ bubble(W*.28,H*.6,W*.68,T(job.stars===3?'Отлично, дружок! Золотые руки!':job.stars===2?'Хорошая работа! Ещё чуть быстрее!':'Починил — уже молодец. Учись, дружок!')+' 💡 '+T(job.tip),W*.2,H*.66+30);
+ mukha(W*.9,H*.57,.7,job.stars>=2?'happy':'ok');
+ var bw=Math.min(300,W-48),bx=(W-bw)/2;btn(bx,H-3*62-10,bw,54,T('▶ Следующий клиент'),startRepair,true,19);btn(bx,H-2*62-10,bw,54,T('🛒 Инструменты'),function(){state='shop';},false,18);btn(bx,H-62-10,bw,54,T('🏠 В меню'),function(){state='menu';},false,18);}
+// ---------- BUILD MODE ----------
+var BS=[
+ {n:'Рама',ic:'🛠️',h:'Начнём с рамы — это основа машины.',sl:[0,30],d:function(){ctx.fillStyle='#3a424b';ctx.fillRect(-92,24,184,9);ctx.fillStyle='#2a3036';ctx.fillRect(-60,18,10,8);ctx.fillRect(50,18,10,8);ctx.strokeStyle='#555e68';ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(-56,34);ctx.lineTo(56,34);ctx.stroke();}},
+ {n:'Заднее колесо',ic:'🛞',h:'Поставь заднее колесо.',sl:[-56,34],d:function(){wh(-56,34,16);}},
+ {n:'Переднее колесо',ic:'🛞',h:'Теперь переднее колесо.',sl:[56,34],d:function(){wh(56,34,16);}},
+ {n:'Двигатель',ic:'⚙️',h:'Сердце машины — двигатель. Ставь под капот!',sl:[62,6],d:function(){box(40,-8,46,34,6,'#7a8794');box(46,-14,34,10,4,'#a3adb8');for(var i=0;i<4;i++)box(48+i*9,-4,6,22,2,'#5b6672');circ(66,8,9,'#c9d1d9');circ(66,8,3,'#5b6672');}},
+ {n:'Аккумулятор',ic:'🔋',h:'Аккумулятор даёт искру. Поставь рядом с двигателем.',sl:[22,12],d:function(){box(6,2,32,22,3,'#2a5da8');box(10,-2,6,6,1,'#e23a3a');box(28,-2,6,6,1,'#222');}},
+ {n:'Сиденья',ic:'💺',h:'Салону нужны сиденья.',sl:[-30,6],d:function(){box(-52,-4,18,28,5,'#b23a3a');box(-52,16,32,10,4,'#8e2c2c');box(-14,-4,18,28,5,'#b23a3a');box(-14,16,32,10,4,'#8e2c2c');}},
+ {n:'Руль',ic:'🎛️',h:'Без руля никуда! Поставь руль.',sl:[14,-4],d:function(){ctx.strokeStyle='#222';ctx.lineWidth=4;ctx.beginPath();ctx.ellipse(18,-6,8,12,.3,0,7);ctx.stroke();ln(18,6,22,24,'#444',4);}},
+ {n:'Кузов',ic:'🚗',h:'Накрой всё кузовом — он защитит механику.',sl:[0,-4],d:function(){body(SEDAN,'#9aa4ae');arch(-56,34,16);arch(56,34,16);wh(-56,34,16);wh(56,34,16);}},
+ {n:'Стёкла',ic:'🪟',h:'Поставь стёкла.',sl:[-8,-18],d:function(){glass('M-50,-8 Q-39,-26 -16,-28 L-5,-28 L-5,-8 Z');glass('M2,-28 L16,-28 Q34,-26 45,-8 L2,-8 Z');}},
+ {n:'Двери',ic:'🚪',h:'Двери закрывают салон.',sl:[-2,10],d:function(){doors(-2);mirror(46,-8,'#9aa4ae');}},
+ {n:'Фары',ic:'💡',h:'Последняя деталь — фары.',sl:[92,4],d:function(){lamps(96,4,-95,4);}}];
+var BCOL=['#2f6fe8','#e84a4a','#2fb36a','#ffb21f','#8e5cf7','#ff8a1f'];
+function startBuild(){bld={st:0,color:null,mis:0,t0:performance.now(),items:[],drag:null,done:false,drive:0};makeTray();state='build';}
+function makeTray(){var s=BS[bld.st];if(!s){bld.items=[];return;}var dec=['⚙️','🔋','🛞','💺','🪟','🚪','💡','🚗','🎛️'].filter(function(x){return x!==s.ic;}).sort(function(){return Math.random()-.5;}).slice(0,2);var arr=[{ic:s.ic,ok:1},{ic:dec[0],ok:0},{ic:dec[1],ok:0}].sort(function(){return Math.random()-.5;});bld.items=arr.map(function(it,i){it.hx=W*(.2+.3*i);it.hy=H-70;it.x=it.hx;it.y=it.hy;return it;});}
+function slotXY(s){var sc=CSC*1.1;return [W/2+s.sl[0]*sc,H*.36+s.sl[1]*sc];}
+function drawBuildCar(upto,colr){var sc=CSC*1.1;ctx.save();ctx.translate(W/2,H*.36);ctx.scale(sc,sc);for(var i=0;i<upto;i++){if(BS[i].n==='Кузов'&&colr){body(SEDAN,colr);arch(-56,34,16);arch(56,34,16);wh(-56,34,16);wh(56,34,16);}else BS[i].d();}ctx.restore();}
+function drawBuild(){bgG();var sa=satop();var b=bld;
+ if(b.st<BS.length){var s=BS[b.st],sp=slotXY(s);drawBuildCar(b.st);
+  ctx.strokeStyle='rgba(255,230,120,.95)';ctx.setLineDash([7,5]);ctx.lineWidth=3;ctx.beginPath();ctx.arc(sp[0],sp[1],34+Math.sin(t*5)*3,0,7);ctx.stroke();ctx.setLineDash([]);
+  bubble(W*.06,sa+50,W*.88,T(s.h),W*.2,sa+50+60);
+  ctx.fillStyle='rgba(255,255,255,.55)';rr(10,H-124,W-20,112,20);ctx.fill();
+  b.items.forEach(function(it){ctx.font='54px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(it.ic,it.x,it.y);});
+  ctx.fillStyle='#fff';ctx.strokeStyle='rgba(0,0,0,.5)';ctx.lineWidth=4;ctx.font='bold 14px system-ui';var m=(b.st+1)+'/'+BS.length+' · '+T(s.n);ctx.strokeText(m,W/2,H-136);ctx.fillText(m,W/2,H-136);}
+ else if(!b.color){drawBuildCar(BS.length,'#9aa4ae');bubble(W*.06,sa+50,W*.88,T('Осталось покрасить! Выбери цвет.'),W*.2,sa+110);var n=BCOL.length,sw=Math.min(54,(W-40)/n-6);BCOL.forEach(function(c,i){var x=W/2-(n*(sw+8))/2+i*(sw+8)+4,y=H-110;btns.push({x:x,y:y,w:sw,h:sw,fn:function(){b.color=c;b.drive=0;beep(660,.15,'triangle',.1);spawn(W/2,H*.36,18,c,5);}});ctx.fillStyle=c;rr(x,y,sw,sw,14);ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=3;ctx.stroke();});}
+ else{b.drive+=.016;var gx=b.drive>2?(b.drive-2)*300:0;ctx.save();ctx.translate(gx,0);drawBuildCar(BS.length,b.color);ctx.restore();
+  if(!b.done&&b.drive>.2){b.done=true;var tm=(performance.now()-b.t0)/1000;var st=3-Math.min(2,b.mis>2?2:b.mis>0?1:0);b.stars=Math.max(1,st);b.coins=30+b.stars*8;S.coins+=b.coins;S.built++;S.cars.push(b.color);if(S.cars.length>6)S.cars.shift();lvCheck();S.stars+=b.stars;save2();try{QS.done(b.coins);}catch(e){}try{LB.submit(S.done*5+S.stars+S.built*10);}catch(e){}jingle();buzz('success');}
+  ctx.fillStyle='rgba(255,255,255,.96)';rr(W/2-150,H*.5,300,140,22);ctx.fill();ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='#2a3440';ctx.font='bold 25px system-ui';ctx.fillText(T('Машина собрана! 🎉'),W/2,H*.5+28);ctx.fillStyle='#f0a000';ctx.font='36px system-ui';ctx.fillText('★'.repeat(b.stars)+'☆'.repeat(3-b.stars),W/2,H*.5+66);ctx.fillStyle='#2a3440';ctx.font='bold 18px system-ui';ctx.fillText(T('Заработано: +')+b.coins+' 💰',W/2,H*.5+106);
+  shukur(W*.13,H*.85,1.05,'happy');var bw=Math.min(300,W-48),bx=(W-bw)/2;btn(bx+30,H-2*62-8,bw-30,54,T('🏗️ Собрать ещё'),startBuild,true,19);btn(bx+30,H-62-8,bw-30,54,T('🏠 В меню'),function(){state='menu';},false,18);}
+ iconBtn(10,sa+10,44,'←',function(){state='menu';});}
+function buildDown(x,y){var b=bld;if(b.st>=BS.length)return;b.drag=null;b.items.forEach(function(it){if(dist(x,y,it.x,it.y)<40)b.drag=it;});}
+function buildMove(x,y){if(bld&&bld.drag){bld.drag.x=x;bld.drag.y=y;}}
+function buildUp(){var b=bld;if(!b||!b.drag)return;var it=b.drag;b.drag=null;var s=BS[b.st],sp=slotXY(s);
+ if(dist(it.x,it.y,sp[0],sp[1])<60){if(it.ok){beep(520+b.st*30,.12,'triangle',.1);spawn(sp[0],sp[1],10,'#ffd34d',3);tick();b.st++;makeTray();}else{b.mis++;toast(T('Это не та деталь!'));beep(170,.25,'sawtooth',.08);buzz('error');it.x=it.hx;it.y=it.hy;}}
+ else{it.x=it.hx;it.y=it.hy;}}
+// ---------- shop ----------
+var TOOLS=[['wr','🔧',['Гаечный ключ','Трещотка','Гайковёрт'],['Болты нужно 3 раза тапнуть','Болты — 2 тапа','Болты — 1 тап'],[0,40,140]],
+ ['ha','🔨',['Молоток','Киянка','Правочный набор'],['Вмятина — 3 удара','Вмятина — 2 удара','Вмятина — 1 удар, краска быстрее'],[0,35,120]],
+ ['oil','🛢️',['Лейка','Воронка','Раздатчик'],['Медленно, узкая зона','Быстрее, зона шире','Быстро и широкая зона'],[0,30,100]],
+ ['bat','🔋',['Простые зажимы','Крокодилы','Стенд зарядки'],['Нужно точно попасть','Попасть проще','Зажим сам цепляется'],[0,35,120]],
+ ['bulb','💡',['Пальцы','Пинцет','Лампо-набор'],['Медленно закручивать','Быстрее и проще','Мигом и без промаха'],[0,30,100]]];
+var shopY=0;
+function shopBtn(x,y,w,h,label,fn,prim,sz,top){if(y>=top-4&&y+h<=H+4)btn(x,y,w,h,label,fn,prim,sz);else{ctx.fillStyle=prim?'#f2b01e':'#fff';rr(x,y,w,h,16);ctx.fill();}}
+function drawShop(){bgG();var sa=satop(),top=sa+100;ctx.textAlign='center';ctx.textBaseline='middle';var bw=Math.min(340,W-28),bx=(W-bw)/2,CH=150,total=TOOLS.length*(CH+12)+20,maxS=Math.min(0,H-top-total);if(shopY<maxS)shopY=maxS;if(shopY>0)shopY=0;
+ ctx.save();ctx.beginPath();ctx.rect(0,top,W,H-top);ctx.clip();var y=top+shopY+6;
+ TOOLS.forEach(function(tl){var k=tl[0],l=S.lv[k];ctx.fillStyle='#fff';rr(bx,y,bw,CH,20);ctx.fill();ctx.strokeStyle='#aab4bf';ctx.lineWidth=3;ctx.stroke();ctx.font='40px system-ui';ctx.fillStyle='#000';ctx.fillText(tl[1],bx+40,y+42);ctx.textAlign='left';ctx.fillStyle='#2a3440';ctx.font='bold 18px system-ui';ctx.fillText(T(tl[2][l-1]),bx+76,y+30);ctx.font='13px system-ui';ctx.fillStyle='#5b6672';ctx.fillText(T(tl[3][l-1]),bx+76,y+54);
+  for(var d=1;d<=3;d++){ctx.fillStyle=d<=l?'#f2b01e':'#d7dde3';ctx.beginPath();ctx.arc(bx+84+d*20,y+78,6,0,7);ctx.fill();}ctx.textAlign='center';
+  if(l>=3){ctx.fillStyle='#4cae5b';ctx.font='bold 16px system-ui';ctx.fillText(T('Макс.')+' ✔',bx+bw/2,y+118);}
+  else shopBtn(bx+14,y+94,bw-28,44,T('Купить: ')+T(tl[2][l])+' — '+tl[4][l]+' 💰',function(){if(S.coins<tl[4][l]){toast(T('Мало денег 💰'));return;}S.coins-=tl[4][l];S.lv[k]++;save2();toast(T('Куплено!'));buzz('success');},true,15,top);
+  y+=CH+12;});
+ ctx.restore();ctx.fillStyle='rgba(174,185,196,.97)';ctx.fillRect(0,0,W,top);iconBtn(10,sa+10,44,'←',function(){state='menu';});ctx.font='bold 17px system-ui';ctx.textAlign='right';ctx.fillStyle='#3a2a00';ctx.fillText('💰 '+S.coins,W-14,sa+28);ctx.textAlign='center';ctx.fillStyle='#2a3440';ctx.font='bold 26px system-ui';ctx.fillText(T('🛒 Инструменты'),W/2,sa+72);}
+// ---------- menu ----------
+function drawMenu(){bgG();var sa=satop();ctx.textAlign='center';ctx.textBaseline='middle';
+ ctx.fillStyle='#24303c';ctx.font='bold 30px system-ui';ctx.fillText(T('Автомастерская'),W/2,sa+68);ctx.font='bold 22px system-ui';ctx.fillStyle='#c25a10';ctx.fillText(T('у Шукура'),W/2,sa+98);
+ shukur(W*.2,H*.5,1.5,'happy',true);var i=Math.floor(t/2.4)%CARS.length;drawVeh(CARS[i],W*.64,H*.44,Math.min(.9,W/420),false,i===0?'#2f6fe8':undefined);
+ if(S.cars.length){ctx.fillStyle='rgba(255,255,255,.35)';rr(W/2-150,sa+118,300,40,12);ctx.fill();S.cars.forEach(function(c,i){drawVeh('sedan',W/2-125+i*50,sa+148,.2,false,c);});ctx.fillStyle='#24303c';ctx.font='11px system-ui';ctx.textAlign='left';ctx.fillText(T('Выставка'),W/2-146,sa+124);ctx.textAlign='center';}
+ mukha(W*.9,H*.5,.85,'ok',talking());chatter(W*.9,H*.5-72,sa+128);
+ var lv=glv();ctx.fillStyle='#24303c';ctx.font='bold 15px system-ui';ctx.fillText(T(LN[lv])+' · 🔧 '+S.done+' · 🏗️ '+S.built,W/2,H*.53);
+ var bw=Math.min(310,W-48),bx=(W-bw)/2,y=H*.58;
+ btn(bx,y,bw,58,T('🔧 Чиним: клиент №')+(S.done+1),startRepair,true,20);y+=66;
+ btn(bx,y,bw,54,T('🏗️ Собрать машину с нуля'),startBuild,false,18);y+=62;
+ btn(bx,y,bw,48,T('🛒 Инструменты'),function(){state='shop';},false,17);y+=56;
+ var w2=bw-112;btn(bx,y,w2,48,T('👥 Позвать друга'),share,false,16);iconBtn(bx+w2+8,y,48,'🏆',function(){try{LB.open();}catch(e){}});iconBtn(bx+w2+64,y,48,S.mute?'🔇':'🔊',function(){S.mute=!S.mute;save2();});
+ ctx.fillStyle='#24303c';ctx.font='bold 15px system-ui';ctx.textAlign='center';ctx.fillText('💰 '+S.coins+'   ⭐ '+S.stars,W/2,Math.min(H-14,y+68));}
+function share(){try{QS.share()}catch(e){}var url=REF.link(SHARE_URL)||(location.origin+location.pathname),text=T('Работаю в автомастерской у Шукура! Починено машин: ')+S.done+' 🔧';
+ var link='https://t.me/share/url?url='+encodeURIComponent(url)+'&text='+encodeURIComponent(text);
+ try{if(tg&&tg.openTelegramLink){tg.openTelegramLink(link);return;}}catch(e){}
+ try{if(navigator.share){navigator.share({title:T('Автомастерская у Шукура'),text:text,url:url}).catch(function(){});return;}}catch(e){}
+ try{navigator.clipboard.writeText(text+' '+url).then(function(){toast(T('Ссылка скопирована'));});}catch(e){toast(url);}}
+// ---------- loop & input ----------
+var last=performance.now();
+function loop(now){CSC=Math.min(1.5,(W-30)/200);var dt=Math.max(0,Math.min(.05,(now-last)/1000));last=now;t+=dt;btns=[];holds=[];
+ ctx.save();if(shake>0){ctx.translate(rnd(-5,5),0);shake-=dt;}
+ if(state==='menu')drawMenu();else if(state==='arrive')drawArrive();else if(state==='diag')drawDiag();else if(state==='fix'){FIX[job.type].update&&FIX[job.type].update(dt);if(state==='fix')drawFix();}else if(state==='pay')drawPay();else if(state==='oops')drawOops();else if(state==='shop')drawShop();else if(state==='build')drawBuild();
+ drawFx(dt);ctx.restore();
+ if(msg&&performance.now()<msgT){ctx.font='bold 15px system-ui';var w=ctx.measureText(msg).width+30;ctx.fillStyle='rgba(30,30,50,.9)';rr(W/2-w/2,H*.52,w,36,18);ctx.fill();ctx.fillStyle='#fff';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(msg,W/2,H*.52+18);}
+ requestAnimationFrame(loop);}
+function inb(b,x,y){return x>=b.x&&x<=b.x+b.w&&y>=b.y&&y<=b.y+b.h;}
+cv.addEventListener('pointerdown',function(e){lastAct=performance.now();initAudio();var x=e.clientX,y=e.clientY;ptr.down=true;ptr.x=ptr.lx=x;ptr.y=ptr.ly=y;ptr.moved=0;held=null;
+ for(var i=0;i<holds.length;i++)if(inb(holds[i],x,y)){held=holds[i].id;return;}
+ if(btns.some(function(b){return inb(b,x,y);}))return;
+ if(state==='fix')FIX[job.type].down(x,y);else if(state==='build')buildDown(x,y);});
+cv.addEventListener('pointermove',function(e){if(!ptr.down)return;var x=e.clientX,y=e.clientY;ptr.moved+=Math.hypot(x-ptr.lx,y-ptr.ly);ptr.x=x;ptr.y=y;
+ if(state==='fix')FIX[job.type].move(x,y);else if(state==='build')buildMove(x,y);else if(state==='shop'){shopY+=y-ptr.ly;}ptr.lx=x;ptr.ly=y;});
+function pup(){if(ptr.down){if(state==='fix')FIX[job.type].up();else if(state==='build')buildUp();}ptr.down=false;held=null;}
+cv.addEventListener('pointerup',pup);cv.addEventListener('pointercancel',pup);
+cv.addEventListener('click',function(e){if(ptr.moved>10&&(state==='shop'||state==='fix'||state==='build'))return;for(var i=btns.length-1;i>=0;i--){var b=btns[i];if(inb(b,e.clientX,e.clientY)){tick();b.fn();return;}}});
+
+var QS=(function(){
+var G=null,st=null,box=null,btnEl=null,shown=null,tEl=null,tT=0;
+function day(){return Math.floor((Date.now()-new Date().getTimezoneOffset()*-60000)/864e5);}
+function key(){return 'qs_'+G.id;}
+function load(){try{st=JSON.parse(localStorage.getItem(key())||'null');}catch(e){st=null;}
+ st=st||{};st.life=st.life||{games:0,points:0,shares:0};st.ach=st.ach||{};st.streak=st.streak||0;
+ if(st.day!==day()){st.day=day();st.p={games:0,points:0,shares:0};st.c={};st.all=0;}save();}
+function save(){try{localStorage.setItem(key(),JSON.stringify(st));}catch(e){}}
+function missions(){var P=G.P,n=day(),T5=[{k:'games',n:2},{k:'games',n:4},{k:'points',n:P},{k:'points',n:Math.round(P*2.5)},{k:'shares',n:1}];
+ return [T5[n%5],T5[(n+2)%5],T5[(n+3)%5]];}
+function mname(m){return m.k==='games'?T('Сыграй раундов: ')+m.n:m.k==='points'?T('Набери очков: ')+m.n:T('Позови друга');}
+var ACH=[
+ {id:'g1',n:'🎮 Первая игра',f:function(){return st.life.games>=1;}},
+ {id:'g10',n:'🔟 10 игр',f:function(){return st.life.games>=10;}},
+ {id:'g50',n:'🏅 50 игр',f:function(){return st.life.games>=50;}},
+ {id:'p1',n:'⭐ Много очков',f:function(){return st.life.points>=G.P*20;}},
+ {id:'p2',n:'🌟 Мастер',f:function(){return st.life.points>=G.P*100;}},
+ {id:'sh',n:'👥 Позвал друга',f:function(){return st.life.shares>=1;}},
+ {id:'s3',n:'🔥 3 дня подряд',f:function(){return st.streak>=3;}},
+ {id:'s7',n:'🏆 Неделя подряд',f:function(){return st.streak>=7;}},
+ {id:'all',n:'✅ Все задания дня',f:function(){return st.all>=3;}}];
+function toast(s){try{if(!tEl){tEl=document.createElement('div');tEl.style.cssText='position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:rgba(30,30,50,.92);color:#fff;font:bold 15px system-ui;padding:10px 16px;border-radius:18px;z-index:9999;max-width:88vw;text-align:center;display:none;pointer-events:none';document.body.appendChild(tEl);}
+ tEl.textContent=s;tEl.style.display='block';clearTimeout(tT);tT=setTimeout(function(){tEl.style.display='none';},2600);}catch(e){}}
+function reward(m){return G.reward?G.rewLabel(m):'';}
+function check(){var ms=missions(),got=0;
+ ms.forEach(function(m,i){var v=st.p[m.k]||0;if(v>=m.n){got++;if(!st.c[i]){st.c[i]=1;try{if(G.reward)G.reward(1);}catch(e){}toast('🎯 '+T('Задание выполнено!')+(G.reward?' +'+G.rewLabel(1):''));}}});
+ st.all=got;
+ ACH.forEach(function(a){if(!st.ach[a.id]&&a.f()){st.ach[a.id]=1;try{if(G.reward)G.reward(3);}catch(e){}setTimeout(function(){toast('🏅 '+T('Достижение: ')+T(a.n)+(G.reward?' +'+G.rewLabel(3):''));},700);}});
+ save();paintBtn();}
+function init(c){G=c;load();build();paintBtn();}
+function done(pts){if(!G)return;if(st.day!==day())load();
+ var d=day();if(st.last!==d){st.streak=(st.last===d-1)?st.streak+1:1;st.last=d;}
+ st.life.games++;st.life.points+=Math.max(0,pts|0);st.p.games++;st.p.points+=Math.max(0,pts|0);check();}
+function share(){if(!G)return;if(st.day!==day())load();st.life.shares++;st.p.shares++;check();}
+function show(on){if(on===shown||!btnEl)return;shown=on;btnEl.style.display=on?'flex':'none';}
+function paintBtn(){if(!btnEl)return;var ms=missions(),n=0;ms.forEach(function(m){if((st.p[m.k]||0)>=m.n)n++;});btnEl.innerHTML='🎯<span style="font-size:11px;margin-left:3px;font-weight:700">'+n+'/3</span>';}
+function build(){try{
+ btnEl=document.createElement('div');btnEl.style.cssText='position:fixed;left:8px;top:'+(8+(G.top||0))+'px;height:38px;padding:0 10px;border-radius:12px;background:rgba(255,255,255,.28);color:#fff;font:bold 18px system-ui;align-items:center;z-index:50;display:none;cursor:pointer;backdrop-filter:blur(4px)';
+ btnEl.addEventListener('click',function(e){e.stopPropagation();open();});document.body.appendChild(btnEl);
+ box=document.createElement('div');box.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:10000;display:none;align-items:center;justify-content:center;font-family:system-ui,sans-serif';
+ document.body.appendChild(box);}catch(e){}}
+function open(){if(!box)return;if(st.day!==day())load();var ms=missions(),h='<div style="background:#fff;color:#222;border-radius:20px;width:min(340px,92vw);max-height:84vh;overflow:auto;padding:16px"><div style="font-size:21px;font-weight:800;text-align:center;margin-bottom:8px">🎯 '+T('Задания дня')+'</div>';
+ ms.forEach(function(m,i){var v=Math.min(st.p[m.k]||0,m.n),ok=v>=m.n;h+='<div style="padding:9px 10px;border-radius:12px;margin-bottom:7px;background:'+(ok?'#d9f7e0':'#f4f0ff')+'"><div style="display:flex;justify-content:space-between;font-size:15px;font-weight:700"><span>'+(ok?'✅ ':'')+mname(m)+'</span><span>'+v+'/'+m.n+'</span></div><div style="height:7px;border-radius:4px;background:#ddd;margin-top:6px;overflow:hidden"><div style="height:100%;width:'+Math.round(v/m.n*100)+'%;background:#8e5cf7"></div></div>'+(G.reward?'<div style="font-size:12px;color:#777;margin-top:4px">'+T('Награда: ')+G.rewLabel(1)+'</div>':'')+'</div>';});
+ var na=0;ACH.forEach(function(a){if(st.ach[a.id])na++;});
+ h+='<div style="font-size:18px;font-weight:800;margin:12px 0 6px">🏅 '+T('Достижения')+' '+na+'/'+ACH.length+'</div><div style="display:flex;flex-wrap:wrap;gap:6px">';
+ ACH.forEach(function(a){var ok=st.ach[a.id];h+='<span style="padding:6px 10px;border-radius:14px;font-size:13px;font-weight:700;background:'+(ok?'#fff3b0':'#eee')+';color:'+(ok?'#222':'#999')+'">'+(ok?'':'🔒 ')+T(a.n)+'</span>';});
+ h+='</div><div style="text-align:center;margin-top:10px;font-size:13px;color:#777">🔥 '+T('Дней подряд: ')+st.streak+'</div><button id="qsx" style="margin-top:12px;width:100%;padding:13px;border:0;border-radius:12px;background:#8e5cf7;color:#fff;font-size:17px;font-weight:700">'+T('Закрыть')+'</button></div>';
+ box.innerHTML=h;box.style.display='flex';var x=document.getElementById('qsx');if(x)x.addEventListener('click',function(){box.style.display='none';});}
+return {init:init,done:done,share:share,show:show};
+})();
+
+
+try{QS.init({id:'sh',P:60,reward:function(k){S.coins+=10*k;save2();},rewLabel:function(k){return '💰'+10*k}});setInterval(function(){try{QS.show(state==='menu')}catch(e){}},250);}catch(e){}
+requestAnimationFrame(loop);
+window.__dbg={get state(){return state;},setState:function(s){state=s;},get S(){return S;},get job(){return job;},get F(){return F;},get bld(){return bld;},startRepair:startRepair,startBuild:startBuild,startFix:startFix,pickDiag:pickDiag,fixDone:fixDone,TYPES:TYPES,BS:BS,get held(){return held;},setHeld:function(h){held=h;},slotXY:slotXY};
+})();
+</script>
+</body>
+</html>
